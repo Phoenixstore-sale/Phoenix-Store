@@ -1,0 +1,1503 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080808;
+    color: #ffffff;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    width: 100%;
+    min-height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 6%;
+
+    background: #050505;
+
+    border-bottom: 1px solid #292929;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-circle {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #050505;
+
+    border: 2px solid #f2c400;
+
+    flex-shrink: 0;
+}
+
+.logo-circle img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.brand h1 {
+    font-size: 23px;
+    letter-spacing: 2px;
+}
+
+.brand span {
+    color: #f2c400;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+}
+
+.navigation {
+    display: flex;
+    gap: 25px;
+}
+
+.navigation a {
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+.navigation a:hover {
+    color: #f2c400;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 600px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.90) 0%,
+            rgba(0, 0, 0, 0.55) 45%,
+            rgba(0, 0, 0, 0.78) 100%
+        ),
+        url("assets/blood-strike.png")
+        center center / cover no-repeat;
+}
+
+.hero-content {
+    max-width: 800px;
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 30px;
+}
+
+.small-title {
+    color: #f2c400;
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 15px;
+}
+
+.hero h2 {
+    font-size: clamp(45px, 9vw, 100px);
+
+    font-weight: 900;
+
+    letter-spacing: 4px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.25),
+        0 0 30px rgba(242,196,0,0.35),
+        4px 4px 0 #111111;
+}
+
+.hero-text {
+    color: #cccccc;
+
+    font-size: 18px;
+
+    margin: 20px auto 30px;
+
+    max-width: 550px;
+}
+
+.hero-button {
+    display: inline-block;
+
+    padding: 15px 30px;
+
+    background: #f2c400;
+
+    color: #050505;
+
+    text-decoration: none;
+
+    font-weight: 900;
+
+    border-radius: 4px;
+
+    transition: 0.3s;
+}
+
+.hero-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 25px rgba(242,196,0,0.3);
+}
+
+
+/* =========================
+   SECCIONES
+========================= */
+
+.games,
+.products,
+.support {
+    padding: 80px 6%;
+}
+
+.section-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 35px;
+}
+
+.section-title > span {
+    font-size: 35px;
+}
+
+.section-title p {
+    color: #f2c400;
+
+    font-size: 12px;
+
+    letter-spacing: 3px;
+}
+
+.section-title h2 {
+    font-size: 30px;
+}
+
+
+/* =========================
+   GAME CARD
+========================= */
+
+.game-card {
+    max-width: 600px;
+
+    display: flex;
+
+    background: #101010;
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.game-image {
+    width: 40%;
+
+    min-height: 220px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #390000,
+            #111111,
+            #192d45
+        );
+}
+
+.game-info {
+    padding: 25px;
+
+    flex: 1;
+}
+
+.game-status {
+    display: inline-block;
+
+    color: #050505;
+
+    background: #f2c400;
+
+    padding: 5px 9px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    border-radius: 3px;
+}
+
+.game-info h3 {
+    margin: 15px 0 8px;
+
+    font-size: 25px;
+}
+
+.game-info p {
+    color: #aaaaaa;
+
+    margin-bottom: 20px;
+}
+
+.buy-button {
+    display: inline-block;
+
+    padding: 10px 20px;
+
+    background: #f2c400;
+
+    color: #050505;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border-radius: 4px;
+
+    transition: 0.3s;
+}
+
+.buy-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(242,196,0,0.25);
+}
+
+
+/* =========================
+   PRODUCTOS
+========================= */
+
+.products {
+    background: #0b0b0b;
+}
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+
+    gap: 18px;
+}
+
+.product-card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #1a1a1a,
+            #070707
+        );
+
+    border: 1px solid #383000;
+
+    padding: 28px 22px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    overflow: hidden;
+
+    transition: all 0.3s ease;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.45);
+}
+
+.product-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: #f2c400;
+}
+
+.product-card:hover {
+    transform: translateY(-7px);
+
+    border-color: #f2c400;
+
+    box-shadow:
+        0 12px 35px rgba(242, 196, 0, 0.15);
+}
+
+.product-card.special {
+    border-color: #725f00;
+}
+
+.product-amount {
+    color: #ffffff;
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.product-description {
+    color: #999999;
+
+    margin-bottom: 18px;
+}
+
+.product-price {
+    color: #f2c400;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    margin-bottom: 20px;
+
+    text-shadow:
+        0 0 12px rgba(242, 196, 0, 0.25);
+}
+
+.product-card button {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #f2c400;
+
+    background: #f2c400;
+
+    color: #050505;
+
+    font-weight: 900;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    border-radius: 4px;
+
+    transition: all 0.3s ease;
+}
+
+.product-card button:hover {
+    background: #ffffff;
+
+    border-color: #ffffff;
+
+    transform: scale(1.02);
+}
+
+
+/* =========================
+   SOPORTE
+========================= */
+
+.support {
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle,
+            #211b00,
+            #080808 65%
+        );
+}
+
+.support p {
+    color: #f2c400;
+
+    letter-spacing: 3px;
+
+    font-size: 12px;
+
+    margin-bottom: 10px;
+}
+
+.support h2 {
+    font-size: 35px;
+
+    margin-bottom: 25px;
+}
+
+.support button {
+    padding: 14px 25px;
+
+    border: none;
+
+    background: #f2c400;
+
+    color: #050505;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    border-radius: 4px;
+
+    transition: 0.3s;
+}
+
+.support button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(242,196,0,0.25);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    text-align: center;
+
+    padding: 45px 20px;
+
+    background: #030303;
+
+    border-top: 1px solid #222222;
+}
+
+footer h2 {
+    letter-spacing: 3px;
+}
+
+footer p {
+    color: #f2c400;
+
+    font-size: 12px;
+
+    letter-spacing: 4px;
+
+    margin: 8px 0 20px;
+}
+
+footer small {
+    color: #666666;
+}
+
+
+/* =========================
+   PANTALLA COMPLETA DE PEDIDO
+========================= */
+
+.checkout-page {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow-y: auto;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #2b2300 0%,
+            #0b0b0b 40%,
+            #030303 100%
+        );
+
+    z-index: 9999;
+
+    padding: 25px 20px;
+}
+
+.checkout-page.active {
+    display: block;
+}
+
+body.checkout-active {
+    overflow: hidden;
+}
+
+body.checkout-active > header,
+body.checkout-active > main > section:not(.checkout-page),
+body.checkout-active > footer {
+    display: none;
+}
+
+
+/* =========================
+   CONTENIDO CHECKOUT
+========================= */
+
+.checkout-page-content {
+    width: 100%;
+
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    padding-bottom: 40px;
+}
+
+
+/* =========================
+   BOTÓN VOLVER
+========================= */
+
+.checkout-page .back-button {
+    display: block;
+
+    margin: 0 0 28px;
+
+    padding: 9px 16px;
+
+    background: transparent;
+
+    border: 1px solid #292929;
+
+    border-radius: 5px;
+
+    color: #888888;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.checkout-page .back-button:hover {
+    color: #f2c400;
+
+    border-color: #f2c400;
+}
+
+
+/* =========================
+   MARCA CHECKOUT
+========================= */
+
+.checkout-brand {
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.checkout-brand p {
+    color: #f2c400;
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 20px rgba(242, 196, 0, 0.20);
+}
+
+.checkout-brand span {
+    color: #888888;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+}
+
+
+/* =========================
+   TITULO CHECKOUT
+========================= */
+
+.checkout-title {
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.checkout-title p {
+    color: #f2c400;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 7px;
+}
+
+.checkout-title h2 {
+    font-size: clamp(30px, 5vw, 48px);
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 20px rgba(242, 196, 0, 0.15);
+}
+
+
+/* =========================
+   CAJA CHECKOUT
+========================= */
+
+.checkout-box {
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #070707
+        );
+
+    border: 1px solid #3d3500;
+
+    border-radius: 10px;
+
+    padding: 26px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+
+/* =========================
+   PRODUCTO CHECKOUT
+========================= */
+
+.checkout-product {
+    text-align: center;
+
+    padding: 21px;
+
+    margin-bottom: 25px;
+
+    background: #0b0b0b;
+
+    border: 1px solid #292929;
+
+    border-radius: 7px;
+}
+
+.checkout-product span {
+    color: #f2c400;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+.checkout-product h3 {
+    margin: 10px 0;
+
+    font-size: 27px;
+
+    font-weight: 900;
+}
+
+.checkout-product strong {
+    color: #f2c400;
+
+    font-size: 26px;
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.checkout-page .checkout-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 17px;
+}
+
+.checkout-page .form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.checkout-page .form-group label {
+    color: #f2c400;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+}
+
+.checkout-page .form-group input,
+.checkout-page .form-group select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    background: #050505;
+
+    border: 1px solid #333333;
+
+    border-radius: 5px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.checkout-page .form-group input::placeholder {
+    color: #666666;
+}
+
+.checkout-page .form-group input:focus,
+.checkout-page .form-group select:focus {
+    border-color: #f2c400;
+
+    box-shadow:
+        0 0 15px rgba(242, 196, 0, 0.15);
+}
+
+.checkout-page .form-group select option {
+    background: #090909;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   BOTÓN CHECKOUT
+========================= */
+
+.checkout-page .checkout-button {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 5px;
+
+    background: #f2c400;
+
+    border: 1px solid #f2c400;
+
+    border-radius: 5px;
+
+    color: #050505;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.checkout-page .checkout-button:hover {
+    background: #ffffff;
+
+    border-color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(242, 196, 0, 0.20);
+}
+
+
+/* ==================================================
+   PANTALLA DE PAGO MÓVIL
+================================================== */
+
+.payment-page {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow-y: auto;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #2b2300 0%,
+            #0b0b0b 40%,
+            #030303 100%
+        );
+
+    z-index: 9999;
+
+    padding: 25px 20px;
+}
+
+.payment-page.active {
+    display: block;
+}
+
+body.payment-active {
+    overflow: hidden;
+}
+
+body.payment-active > header,
+body.payment-active > main > section:not(.payment-page),
+body.payment-active > footer {
+    display: none;
+}
+
+.payment-page-content {
+    width: 100%;
+
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    padding-bottom: 40px;
+}
+
+.payment-page .back-button {
+    display: block;
+
+    margin: 0 0 28px;
+
+    padding: 9px 16px;
+
+    background: transparent;
+
+    border: 1px solid #292929;
+
+    border-radius: 5px;
+
+    color: #888888;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.payment-page .back-button:hover {
+    color: #f2c400;
+
+    border-color: #f2c400;
+}
+
+
+/* =========================
+   CAJA DE PAGO
+========================= */
+
+.payment-box {
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #070707
+        );
+
+    border: 1px solid #3d3500;
+
+    border-radius: 10px;
+
+    padding: 26px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+
+/* =========================
+   PRODUCTO PAGO
+========================= */
+
+.payment-product {
+    text-align: center;
+
+    padding: 21px;
+
+    margin-bottom: 25px;
+
+    background: #0b0b0b;
+
+    border: 1px solid #292929;
+
+    border-radius: 7px;
+}
+
+.payment-product span {
+    color: #f2c400;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+.payment-product h3 {
+    margin: 10px 0;
+
+    font-size: 27px;
+
+    font-weight: 900;
+}
+
+.payment-product strong {
+    color: #f2c400;
+
+    font-size: 26px;
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   DATOS DE PAGO
+========================= */
+
+.payment-details {
+    background: #0b0b0b;
+
+    border: 1px solid #292929;
+
+    border-radius: 7px;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+}
+
+.payment-details h3 {
+    color: #f2c400;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 18px;
+
+    text-align: center;
+}
+
+.payment-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #202020;
+}
+
+.payment-row:last-of-type {
+    border-bottom: none;
+}
+
+.payment-row span {
+    color: #777777;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.payment-row strong {
+    color: #ffffff;
+
+    font-size: 13px;
+
+    text-align: right;
+
+    word-break: break-word;
+}
+
+
+/* =========================
+   TOTAL
+========================= */
+
+.payment-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-top: 15px;
+
+    padding: 17px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #171300,
+            #0d0d0d
+        );
+
+    border: 1px solid #f2c400;
+
+    border-radius: 5px;
+}
+
+.payment-total span {
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.payment-total strong {
+    color: #f2c400;
+
+    font-size: 23px;
+
+    font-weight: 900;
+}
+
+
+/* =========================
+   INSTRUCCIONES
+========================= */
+
+.payment-instruction {
+    padding: 5px 5px 18px;
+
+    text-align: center;
+}
+
+.payment-instruction p {
+    color: #999999;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-bottom: 6px;
+}
+
+
+/* =========================
+   BOTÓN PAGO
+========================= */
+
+.payment-page .checkout-button {
+    width: 100%;
+
+    padding: 15px;
+
+    background: #f2c400;
+
+    border: 1px solid #f2c400;
+
+    border-radius: 5px;
+
+    color: #050505;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.payment-page .checkout-button:hover {
+    background: #ffffff;
+
+    border-color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(242, 196, 0, 0.20);
+}
+
+
+/* ==================================================
+   PANTALLA DE COMPROBANTE
+================================================== */
+
+.receipt-page {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow-y: auto;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #2b2300 0%,
+            #0b0b0b 40%,
+            #030303 100%
+        );
+
+    z-index: 9999;
+
+    padding: 35px 20px;
+}
+
+.receipt-page.active {
+    display: block;
+}
+
+body.receipt-active {
+    overflow: hidden;
+}
+
+body.receipt-active > header,
+body.receipt-active > main > section:not(.receipt-page),
+body.receipt-active > footer {
+    display: none;
+}
+
+.receipt-page-content {
+    width: 100%;
+
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    padding-bottom: 40px;
+}
+
+
+/* =========================
+   TITULO COMPROBANTE
+========================= */
+
+.receipt-title {
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.receipt-title p {
+    color: #f2c400;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 7px;
+}
+
+.receipt-title h2 {
+    font-size: clamp(28px, 5vw, 44px);
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 20px rgba(242, 196, 0, 0.15);
+}
+
+
+/* =========================
+   CAJA COMPROBANTE
+========================= */
+
+.receipt-box {
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #070707
+        );
+
+    border: 1px solid #3d3500;
+
+    border-radius: 10px;
+
+    padding: 26px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+
+/* =========================
+   ÉXITO
+========================= */
+
+.receipt-success {
+    text-align: center;
+
+    padding: 5px 10px 22px;
+}
+
+.success-icon {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f2c400;
+
+    color: #050505;
+
+    font-size: 30px;
+
+    font-weight: 900;
+}
+
+.receipt-success h3 {
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+.receipt-success p {
+    color: #999999;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   NÚMERO DE PEDIDO
+========================= */
+
+.receipt-number-box {
+    text-align: center;
+
+    padding: 17px;
+
+    margin-bottom: 20px;
+
+    background: #0b0b0b;
+
+    border: 1px solid #f2c400;
+
+    border-radius: 6px;
+}
+
+.receipt-number-box span {
+    display: block;
+
+    color: #777777;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 8px;
+}
+
+.receipt-number-box strong {
+    color: #f2c400;
+
+    font-size: 23px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================
+   DATOS COMPROBANTE
+========================= */
+
+.receipt-data {
+    background: #0b0b0b;
+
+    border: 1px solid #292929;
+
+    border-radius: 7px;
+
+    padding: 8px 18px;
+
+    margin-bottom: 20px;
+}
+
+.receipt-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #202020;
+}
+
+.receipt-row:last-child {
+    border-bottom: none;
+}
+
+.receipt-row span {
+    color: #777777;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.receipt-row strong {
+    color: #ffffff;
+
+    font-size: 13px;
+
+    text-align: right;
+
+    word-break: break-word;
+}
+
+
+/* =========================

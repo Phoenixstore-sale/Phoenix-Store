@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phoenix Store | Tu Mejor Recarga</title>
+
+    <meta
+        name="description"
+        content="Phoenix Store - Tu mejor recarga. Recarga Blood Strike de forma rápida y sencilla."
+    >
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header class="header">
+
+        <div class="logo-area">
+
+            <div class="logo-circle">
+                <img src="assets/phoenix-store.png" alt="Phoenix Store">
+            </div>
+
+            <div class="brand">
+                <h1>PHOENIX</h1>
+                <span>STORE</span>
+            </div>
+
+        </div>
+
+        <nav class="navigation">
+            <a href="#inicio">Inicio</a>
+            <a href="#juegos">Juegos</a>
+            <a href="#soporte">Soporte</a>
+        </nav>
+
+    </header>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+
+        <!-- HERO -->
+        <section class="hero" id="inicio">
+
+            <div class="hero-content">
+
+                <p class="small-title">
+                    TU MEJOR RECARGA
+                </p>
+
+                <h2>
+                    BLOOD STRIKE
+                </h2>
+
+                <p class="hero-text">
+                    Recarga Oro para Blood Strike
+                    de forma rápida y sencilla.
+                </p>
+
+                <a href="#productos" class="hero-button">
+                    VER RECARGAS
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- JUEGOS -->
+        <section class="games" id="juegos">
+
+            <div class="section-title">
+
+                <span>🔥</span>
+
+                <div>
+                    <p>CATÁLOGO</p>
+                    <h2>JUEGOS DISPONIBLES</h2>
+                </div>
+
+            </div>
+
+
+            <div class="game-card">
+
+                <div class="game-image">
+                    BLOOD<br>STRIKE
+                </div>
+
+                <div class="game-info">
+
+                    <span class="game-status">
+                        DISPONIBLE
+                    </span>
+
+                    <h3>
+                        Blood Strike
+                    </h3>
+
+                    <p>
+                        Recargas de Oro
+                    </p>
+
+                    <a href="#productos" class="buy-button">
+                        COMPRAR
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRODUCTOS -->
+        <section class="products" id="productos">
+
+            <div class="section-title">
+
+                <span>⚡</span>
+
+                <div>
+                    <p>BLOOD STRIKE</p>
+                    <h2>RECARGA DE ORO</h2>
+                </div>
+
+            </div>
+
+
+            <div class="product-grid">
+
+
+                <!-- PRODUCTO 1 -->
+                <article class="product-card">
+
+                    <div class="product-amount">
+                        100 + 16
+                    </div>
+
+                    <p class="product-description">
+                        Oro
+                    </p>
+
+                    <div class="product-price">
+                        1.025 Bs
+                    </div>
+
+                    <button onclick="comprar('100 + 16', '1.025 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+
+                <!-- PRODUCTO 2 -->
+                <article class="product-card">
+
+                    <div class="product-amount">
+                        300 + 52
+                    </div>
+
+                    <p class="product-description">
+                        Oro
+                    </p>
+
+                    <div class="product-price">
+                        3.050 Bs
+                    </div>
+
+                    <button onclick="comprar('300 + 52', '3.050 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+
+                <!-- PRODUCTO 3 -->
+                <article class="product-card">
+
+                    <div class="product-amount">
+                        500 + 94
+                    </div>
+
+                    <p class="product-description">
+                        Oro
+                    </p>
+
+                    <div class="product-price">
+                        5.105 Bs
+                    </div>
+
+                    <button onclick="comprar('500 + 94', '5.105 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+
+                <!-- PRODUCTO 4 -->
+                <article class="product-card">
+
+                    <div class="product-amount">
+                        1.000 + 210
+                    </div>
+
+                    <p class="product-description">
+                        Oro
+                    </p>
+
+                    <div class="product-price">
+                        10.130 Bs
+                    </div>
+
+                    <button onclick="comprar('1.000 + 210', '10.130 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+
+                <!-- PRODUCTO 5 -->
+                <article class="product-card">
+
+                    <div class="product-amount">
+                        2.000 + 462
+                    </div>
+
+                    <p class="product-description">
+                        Oro
+                    </p>
+
+                    <div class="product-price">
+                        20.250 Bs
+                    </div>
+
+                    <button onclick="comprar('2.000 + 462', '20.250 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+
+                <!-- PRODUCTO 6 -->
+                <article class="product-card">
+
+                    <div class="product-amount">
+                        5.000 + 1.380
+                    </div>
+
+                    <p class="product-description">
+                        Oro
+                    </p>
+
+                    <div class="product-price">
+                        50.762 Bs
+                    </div>
+
+                    <button onclick="comprar('5.000 + 1.380', '50.762 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+
+                <!-- PASE ELITE -->
+                <article class="product-card special">
+
+                    <div class="product-amount">
+                        PASE ÉLITE
+                    </div>
+
+                    <p class="product-description">
+                        Blood Strike
+                    </p>
+
+                    <div class="product-price">
+                        4.256 Bs
+                    </div>
+
+                    <button onclick="comprar('Pase Élite', '4.256 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+
+                <!-- PASE PREMIUM -->
+                <article class="product-card special">
+
+                    <div class="product-amount">
+                        PASE PREMIUM
+                    </div>
+
+                    <p class="product-description">
+                        Blood Strike
+                    </p>
+
+                    <div class="product-price">
+                        9.920 Bs
+                    </div>
+
+                    <button onclick="comprar('Pase Premium', '9.920 Bs')">
+                        COMPRAR
+                    </button>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOPORTE -->
+        <section class="support" id="soporte">
+
+            <p>
+                ¿NECESITAS AYUDA?
+            </p>
+
+            <h2>
+                SOPORTE PHOENIX STORE
+            </h2>
+
+            <button onclick="soporte()">
+                CONTACTAR SOPORTE
+            </button>
+
+        </section>
+
+
+        <!-- =====================================
+             PANTALLA DE PEDIDO
+        ====================================== -->
+
+        <section class="checkout-page" id="checkout">
+
+            <div class="checkout-page-content">
+
+                <button
+                    type="button"
+                    class="back-button"
+                    onclick="volverTienda()"
+                >
+                    ← VOLVER A PHOENIX STORE
+                </button>
+
+
+                <div class="checkout-brand">
+
+                    <p>PHOENIX STORE</p>
+
+                    <span>TU MEJOR RECARGA</span>
+
+                </div>
+
+
+                <div class="checkout-title">
+
+                    <p>ORDEN DE COMPRA</p>
+
+                    <h2>FINALIZAR PEDIDO</h2>
+
+                </div>
+
+
+                <div class="checkout-box">
+
+                    <div class="checkout-product">
+
+                        <span>🎮 BLOOD STRIKE</span>
+
+                        <h3 id="checkout-producto">
+                            -
+                        </h3>
+
+                        <strong id="checkout-precio">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <form id="checkout-form">
+
+                        <div class="form-group">
+
+                            <label for="player-id">
+                                ID DEL JUGADOR
+                            </label>
+
+                            <input
+                                type="text"
+                                id="player-id"
+                                placeholder="Introduce tu ID de Blood Strike"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="customer-name">
+                                NOMBRE DEL CLIENTE
+                            </label>
+
+                            <input
+                                type="text"
+                                id="customer-name"
+                                placeholder="Introduce tu nombre"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="payment-method">
+                                MÉTODO DE PAGO
+                            </label>
+
+                            <select id="payment-method" required>
+
+                                <option value="">
+                                    Selecciona tu método de pago
+                                </option>
+
+                                <option value="Pago Móvil">
+                                    Pago Móvil
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="checkout-button"
+                        >
+                            CONTINUAR
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PANTALLA DE PAGO MÓVIL
+        ====================================== -->
+
+        <section class="payment-page" id="payment">
+
+            <div class="payment-page-content">
+
+                <button
+                    type="button"
+                    class="back-button"
+                    onclick="volverPedido()"
+                >
+                    ← VOLVER AL PEDIDO
+                </button>
+
+
+                <div class="checkout-brand">
+
+                    <p>PHOENIX STORE</p>
+
+                    <span>TU MEJOR RECARGA</span>
+
+                </div>
+
+
+                <div class="checkout-title">
+
+                    <p>MÉTODO DE PAGO</p>
+
+                    <h2>PAGO MÓVIL</h2>
+
+                </div>
+
+
+                <div class="payment-box">
+
+
+                    <!-- PRODUCTO -->
+
+                    <div class="payment-product">
+
+                        <span>🎮 BLOOD STRIKE</span>
+
+                        <h3 id="payment-producto">
+                            -
+                        </h3>
+
+                        <strong id="payment-precio">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <!-- DATOS DE PAGO -->
+
+                    <div class="payment-details">
+
+                        <h3>
+                            DATOS PARA REALIZAR EL PAGO
+                        </h3>
+
+
+                        <div class="payment-row">
+
+                            <span>
+                                BANCO
+                            </span>
+
+                            <strong>
+                                Banco de Venezuela
+                            </strong>
+
+                        </div>
+
+
+                        <div class="payment-row">
+
+                            <span>
+                                TELÉFONO
+                            </span>
+
+                            <strong>
+                                0422-017-8993
+                            </strong>
+
+                        </div>
+
+
+                        <div class="payment-row">
+
+                            <span>
+                                CÉDULA
+                            </span>
+
+                            <strong>
+                                32.339.201
+                            </strong>
+
+                        </div>
+
+
+                        <div class="payment-row">
+
+                            <span>
+                                TITULAR
+                            </span>
+
+                            <strong>
+                                Jhonmer Alexander Fernández Balcenilla
+                            </strong>
+
+                        </div>
+
+
+                        <div class="payment-total">
+
+                            <span>
+                                MONTO A PAGAR
+                            </span>
+
+                            <strong id="payment-total">
+                                -
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- INSTRUCCIONES -->
+
+                    <div class="payment-instruction">
+
+                        <p>
+                            Realiza el Pago Móvil por el monto exacto
+                            indicado arriba.
+                        </p>
+
+                        <p>
+                            Después de realizar el pago,
+                            guarda una captura del comprobante.
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="checkout-button"
+                        onclick="pagoRealizado()"
+                    >
+                        YA REALICÉ EL PAGO
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PANTALLA DE COMPROBANTE
+        ====================================== -->
+
+        <section class="receipt-page" id="receipt">
+
+            <div class="receipt-page-content">
+
+
+                <div class="checkout-brand">
+
+                    <p>PHOENIX STORE</p>
+
+                    <span>TU MEJOR RECARGA</span>
+
+                </div>
+
+
+                <div class="receipt-title">
+
+                    <p>PEDIDO CREADO</p>
+
+                    <h2>COMPROBANTE DE PEDIDO</h2>
+
+                </div>
+
+
+                <div class="receipt-box">
+
+
+                    <!-- CONFIRMACIÓN -->
+
+                    <div class="receipt-success">
+
+                        <div class="success-icon">
+                            ✓
+                        </div>
+
+                        <h3>
+                            ¡PEDIDO PREPARADO!
+                        </h3>
+
+                        <p>
+                            Tu pedido está listo para ser enviado
+                            a Phoenix Store.
+                        </p>
+
+                    </div>
+
+
+                    <!-- NÚMERO DE PEDIDO -->
+
+                    <div class="receipt-number-box">
+
+                        <span>
+                            NÚMERO DE PEDIDO
+                        </span>
+
+                        <strong id="receipt-number">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <!-- DATOS DEL PEDIDO -->
+
+                    <div class="receipt-data">
+
+
+                        <div class="receipt-row">
+
+                            <span>
+                                JUEGO
+                            </span>
+
+                            <strong>
+                                Blood Strike
+                            </strong>
+
+                        </div>
+
+
+                        <div class="receipt-row">
+
+                            <span>
+                                PRODUCTO
+                            </span>
+
+                            <strong id="receipt-producto">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="receipt-row">
+
+                            <span>
+                                PRECIO
+                            </span>
+
+                            <strong id="receipt-precio">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="receipt-row">
+
+                            <span>
+                                ID DEL JUGADOR
+                            </span>
+
+                            <strong id="receipt-id">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="receipt-row">
+
+                            <span>
+                                CLIENTE
+                            </span>
+
+                            <strong id="receipt-cliente">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                        <div class="receipt-row">
+
+                            <span>
+                                MÉTODO DE PAGO
+                            </span>
+
+                            <strong id="receipt-pago">
+                                -
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- AVISO -->
+
+                    <div class="receipt-warning">
+
+                        📸
+
+                        <span>
+                            Después de enviar el pedido,
+                            adjunta en WhatsApp la captura
+                            de tu comprobante de Pago Móvil.
+                        </span>
+
+                    </div>
+
+
+                    <!-- WHATSAPP -->
+
+                    <button
+                        type="button"
+                        class="checkout-button whatsapp-button"
+                        onclick="enviarWhatsApp()"
+                    >
+                        ENVIAR PEDIDO POR WHATSAPP
+                    </button>
+
+
+                    <!-- VOLVER -->
+
+                    <button
+                        type="button"
+                        class="back-button receipt-back"
+                        onclick="volverPago()"
+                    >
+                        ← VOLVER AL PAGO
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+
+        <h2>PHOENIX STORE</h2>
+
+        <p>
+            TU MEJOR RECARGA
+        </p>
+
+        <small>
+            © 2026 Phoenix Store. Todos los derechos reservados.
+        </small>
+
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>
