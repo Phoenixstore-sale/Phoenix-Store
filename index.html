@@ -8,7 +8,7 @@
 
     <meta
         name="description"
-        content="Phoenix Store - Tu mejor recarga. Recarga Blood Strike de forma rápida y sencilla."
+        content="Phoenix Store - Tu mejor recarga. Recarga tus juegos de forma rápida y sencilla."
     >
 
     <link rel="stylesheet" href="styles.css">
@@ -16,7 +16,10 @@
 
 <body>
 
-    <!-- ENCABEZADO -->
+    <!-- =====================================
+         ENCABEZADO
+    ====================================== -->
+
     <header class="header">
 
         <div class="logo-area">
@@ -41,10 +44,17 @@
     </header>
 
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- =====================================
+         CONTENIDO PRINCIPAL
+    ====================================== -->
+
     <main>
 
-        <!-- HERO -->
+
+        <!-- =====================================
+             INICIO
+        ====================================== -->
+
         <section class="hero" id="inicio">
 
             <div class="hero-content">
@@ -54,16 +64,16 @@
                 </p>
 
                 <h2>
-                    BLOOD STRIKE
+                    PHOENIX STORE
                 </h2>
 
                 <p class="hero-text">
-                    Recarga Oro para Blood Strike
-                    de forma rápida y sencilla.
+                    Recargas rápidas, seguras y confiables
+                    para tus juegos favoritos.
                 </p>
 
-                <a href="#productos" class="hero-button">
-                    VER RECARGAS
+                <a href="#juegos" class="hero-button">
+                    VER JUEGOS
                 </a>
 
             </div>
@@ -71,7 +81,10 @@
         </section>
 
 
-        <!-- JUEGOS -->
+        <!-- =====================================
+             CATÁLOGO DE JUEGOS
+        ====================================== -->
+
         <section class="games" id="juegos">
 
             <div class="section-title">
@@ -85,6 +98,8 @@
 
             </div>
 
+
+            <!-- BLOOD STRIKE -->
 
             <div class="game-card">
 
@@ -103,12 +118,16 @@
                     </h3>
 
                     <p>
-                        Recargas de Oro
+                        Recargas de Oro y Pases
                     </p>
 
-                    <a href="#productos" class="buy-button">
-                        COMPRAR
-                    </a>
+                    <button
+                        type="button"
+                        class="buy-button"
+                        onclick="abrirBloodStrike()"
+                    >
+                        VER BLOOD STRIKE
+                    </button>
 
                 </div>
 
@@ -117,205 +136,10 @@
         </section>
 
 
-        <!-- PRODUCTOS -->
-        <section class="products" id="productos">
+        <!-- =====================================
+             SOPORTE
+        ====================================== -->
 
-            <div class="section-title">
-
-                <span>⚡</span>
-
-                <div>
-                    <p>BLOOD STRIKE</p>
-                    <h2>RECARGA DE ORO</h2>
-                </div>
-
-            </div>
-
-
-            <div class="product-grid">
-
-
-                <!-- PRODUCTO 1 -->
-                <article class="product-card">
-
-                    <div class="product-amount">
-                        100 + 16
-                    </div>
-
-                    <p class="product-description">
-                        Oro
-                    </p>
-
-                    <div class="product-price">
-                        1.025 Bs
-                    </div>
-
-                    <button onclick="comprar('100 + 16', '1.025 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-
-                <!-- PRODUCTO 2 -->
-                <article class="product-card">
-
-                    <div class="product-amount">
-                        300 + 52
-                    </div>
-
-                    <p class="product-description">
-                        Oro
-                    </p>
-
-                    <div class="product-price">
-                        3.050 Bs
-                    </div>
-
-                    <button onclick="comprar('300 + 52', '3.050 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-
-                <!-- PRODUCTO 3 -->
-                <article class="product-card">
-
-                    <div class="product-amount">
-                        500 + 94
-                    </div>
-
-                    <p class="product-description">
-                        Oro
-                    </p>
-
-                    <div class="product-price">
-                        5.105 Bs
-                    </div>
-
-                    <button onclick="comprar('500 + 94', '5.105 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-
-                <!-- PRODUCTO 4 -->
-                <article class="product-card">
-
-                    <div class="product-amount">
-                        1.000 + 210
-                    </div>
-
-                    <p class="product-description">
-                        Oro
-                    </p>
-
-                    <div class="product-price">
-                        10.130 Bs
-                    </div>
-
-                    <button onclick="comprar('1.000 + 210', '10.130 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-
-                <!-- PRODUCTO 5 -->
-                <article class="product-card">
-
-                    <div class="product-amount">
-                        2.000 + 462
-                    </div>
-
-                    <p class="product-description">
-                        Oro
-                    </p>
-
-                    <div class="product-price">
-                        20.250 Bs
-                    </div>
-
-                    <button onclick="comprar('2.000 + 462', '20.250 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-
-                <!-- PRODUCTO 6 -->
-                <article class="product-card">
-
-                    <div class="product-amount">
-                        5.000 + 1.380
-                    </div>
-
-                    <p class="product-description">
-                        Oro
-                    </p>
-
-                    <div class="product-price">
-                        50.762 Bs
-                    </div>
-
-                    <button onclick="comprar('5.000 + 1.380', '50.762 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-
-                <!-- PASE ELITE -->
-                <article class="product-card special">
-
-                    <div class="product-amount">
-                        PASE ÉLITE
-                    </div>
-
-                    <p class="product-description">
-                        Blood Strike
-                    </p>
-
-                    <div class="product-price">
-                        4.256 Bs
-                    </div>
-
-                    <button onclick="comprar('Pase Élite', '4.256 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-
-                <!-- PASE PREMIUM -->
-                <article class="product-card special">
-
-                    <div class="product-amount">
-                        PASE PREMIUM
-                    </div>
-
-                    <p class="product-description">
-                        Blood Strike
-                    </p>
-
-                    <div class="product-price">
-                        9.920 Bs
-                    </div>
-
-                    <button onclick="comprar('Pase Premium', '9.920 Bs')">
-                        COMPRAR
-                    </button>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- SOPORTE -->
         <section class="support" id="soporte">
 
             <p>
@@ -334,10 +158,354 @@
 
 
         <!-- =====================================
+             PANTALLA INDIVIDUAL
+             BLOOD STRIKE
+        ====================================== -->
+
+        <section
+            class="blood-strike-page"
+            id="blood-strike-page"
+        >
+
+            <div class="blood-strike-page-content">
+
+
+                <!-- VOLVER -->
+
+                <button
+                    type="button"
+                    class="back-button"
+                    onclick="cerrarBloodStrike()"
+                >
+                    ← VOLVER A JUEGOS
+                </button>
+
+
+                <!-- MARCA -->
+
+                <div class="checkout-brand">
+
+                    <p>PHOENIX STORE</p>
+
+                    <span>
+                        TU MEJOR RECARGA
+                    </span>
+
+                </div>
+
+
+                <!-- TÍTULO -->
+
+                <div class="checkout-title">
+
+                    <p>
+                        CATÁLOGO DE RECARGAS
+                    </p>
+
+                    <h2>
+                        BLOOD STRIKE
+                    </h2>
+
+                </div>
+
+
+                <!-- =================================
+                     PAQUETES DE ORO
+                ================================== -->
+
+                <div class="game-products-section">
+
+                    <div class="game-products-heading">
+
+                        <span>🪙</span>
+
+                        <div>
+                            <p>
+                                BLOOD STRIKE
+                            </p>
+
+                            <h3>
+                                PAQUETES DE ORO
+                            </h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="product-grid">
+
+
+                        <!-- ORO 100 + 16 -->
+
+                        <article class="product-card">
+
+                            <div class="product-amount">
+                                100 + 16
+                            </div>
+
+                            <p class="product-description">
+                                Oro
+                            </p>
+
+                            <div class="product-price">
+                                1.025 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    '100 + 16',
+                                    '1.025 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+
+                        <!-- ORO 300 + 52 -->
+
+                        <article class="product-card">
+
+                            <div class="product-amount">
+                                300 + 52
+                            </div>
+
+                            <p class="product-description">
+                                Oro
+                            </p>
+
+                            <div class="product-price">
+                                3.050 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    '300 + 52',
+                                    '3.050 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+
+                        <!-- ORO 500 + 94 -->
+
+                        <article class="product-card">
+
+                            <div class="product-amount">
+                                500 + 94
+                            </div>
+
+                            <p class="product-description">
+                                Oro
+                            </p>
+
+                            <div class="product-price">
+                                5.105 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    '500 + 94',
+                                    '5.105 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+
+                        <!-- ORO 1000 + 210 -->
+
+                        <article class="product-card">
+
+                            <div class="product-amount">
+                                1.000 + 210
+                            </div>
+
+                            <p class="product-description">
+                                Oro
+                            </p>
+
+                            <div class="product-price">
+                                10.130 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    '1.000 + 210',
+                                    '10.130 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+
+                        <!-- ORO 2000 + 462 -->
+
+                        <article class="product-card">
+
+                            <div class="product-amount">
+                                2.000 + 462
+                            </div>
+
+                            <p class="product-description">
+                                Oro
+                            </p>
+
+                            <div class="product-price">
+                                20.250 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    '2.000 + 462',
+                                    '20.250 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+
+                        <!-- ORO 5000 + 1380 -->
+
+                        <article class="product-card">
+
+                            <div class="product-amount">
+                                5.000 + 1.380
+                            </div>
+
+                            <p class="product-description">
+                                Oro
+                            </p>
+
+                            <div class="product-price">
+                                50.762 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    '5.000 + 1.380',
+                                    '50.762 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     PASES
+                ================================== -->
+
+                <div class="game-products-section passes-section">
+
+                    <div class="game-products-heading">
+
+                        <span>🎟️</span>
+
+                        <div>
+                            <p>
+                                BLOOD STRIKE
+                            </p>
+
+                            <h3>
+                                PASES
+                            </h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="product-grid">
+
+
+                        <!-- PASE ÉLITE -->
+
+                        <article class="product-card special">
+
+                            <div class="product-amount">
+                                PASE ÉLITE
+                            </div>
+
+                            <p class="product-description">
+                                Blood Strike
+                            </p>
+
+                            <div class="product-price">
+                                4.256 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    'Pase Élite',
+                                    '4.256 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+
+                        <!-- PASE PREMIUM -->
+
+                        <article class="product-card special">
+
+                            <div class="product-amount">
+                                PASE PREMIUM
+                            </div>
+
+                            <p class="product-description">
+                                Blood Strike
+                            </p>
+
+                            <div class="product-price">
+                                9.920 Bs
+                            </div>
+
+                            <button
+                                onclick="comprar(
+                                    'Pase Premium',
+                                    '9.920 Bs'
+                                )"
+                            >
+                                COMPRAR
+                            </button>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
              PANTALLA DE PEDIDO
         ====================================== -->
 
-        <section class="checkout-page" id="checkout">
+        <section
+            class="checkout-page"
+            id="checkout"
+        >
 
             <div class="checkout-page-content">
 
@@ -352,18 +520,26 @@
 
                 <div class="checkout-brand">
 
-                    <p>PHOENIX STORE</p>
+                    <p>
+                        PHOENIX STORE
+                    </p>
 
-                    <span>TU MEJOR RECARGA</span>
+                    <span>
+                        TU MEJOR RECARGA
+                    </span>
 
                 </div>
 
 
                 <div class="checkout-title">
 
-                    <p>ORDEN DE COMPRA</p>
+                    <p>
+                        ORDEN DE COMPRA
+                    </p>
 
-                    <h2>FINALIZAR PEDIDO</h2>
+                    <h2>
+                        FINALIZAR PEDIDO
+                    </h2>
 
                 </div>
 
@@ -372,7 +548,9 @@
 
                     <div class="checkout-product">
 
-                        <span>🎮 BLOOD STRIKE</span>
+                        <span>
+                            🎮 BLOOD STRIKE
+                        </span>
 
                         <h3 id="checkout-producto">
                             -
@@ -425,7 +603,10 @@
                                 MÉTODO DE PAGO
                             </label>
 
-                            <select id="payment-method" required>
+                            <select
+                                id="payment-method"
+                                required
+                            >
 
                                 <option value="">
                                     Selecciona tu método de pago
@@ -460,7 +641,10 @@
              PANTALLA DE PAGO MÓVIL
         ====================================== -->
 
-        <section class="payment-page" id="payment">
+        <section
+            class="payment-page"
+            id="payment"
+        >
 
             <div class="payment-page-content">
 
@@ -475,18 +659,26 @@
 
                 <div class="checkout-brand">
 
-                    <p>PHOENIX STORE</p>
+                    <p>
+                        PHOENIX STORE
+                    </p>
 
-                    <span>TU MEJOR RECARGA</span>
+                    <span>
+                        TU MEJOR RECARGA
+                    </span>
 
                 </div>
 
 
                 <div class="checkout-title">
 
-                    <p>MÉTODO DE PAGO</p>
+                    <p>
+                        MÉTODO DE PAGO
+                    </p>
 
-                    <h2>PAGO MÓVIL</h2>
+                    <h2>
+                        PAGO MÓVIL
+                    </h2>
 
                 </div>
 
@@ -498,7 +690,9 @@
 
                     <div class="payment-product">
 
-                        <span>🎮 BLOOD STRIKE</span>
+                        <span>
+                            🎮 BLOOD STRIKE
+                        </span>
 
                         <h3 id="payment-producto">
                             -
@@ -572,241 +766,105 @@
                         </div>
 
 
-                        <div class="payment-total">
+                 <div class="payment-total">
 
-                            <span>
-                                MONTO A PAGAR
-                            </span>
+                      <span>
+                       MONTO A PAGAR
+                     </span>
 
-                            <strong id="payment-total">
-                                -
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- INSTRUCCIONES -->
-
-                    <div class="payment-instruction">
-
-                        <p>
-                            Realiza el Pago Móvil por el monto exacto
-                            indicado arriba.
-                        </p>
-
-                        <p>
-                            Después de realizar el pago,
-                            guarda una captura del comprobante.
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="checkout-button"
-                        onclick="pagoRealizado()"
-                    >
-                        YA REALICÉ EL PAGO
-                    </button>
-
+                     <strong id="payment-total">
+                     -
+                     </strong>
 
                 </div>
 
-            </div>
+                        <button type="button" class="payment-button" onclick="pagoRealizado()">
+                            YA REALICÉ EL PAGO
+                        </button>
 
+                        <button type="button" class="payment-back" onclick="volverPedido()">
+                            ← VOLVER AL PEDIDO
+                        </button>
+
+                    </div>
+                </div>
+            </div>
         </section>
 
-
-        <!-- =====================================
-             PANTALLA DE COMPROBANTE
-        ====================================== -->
+        <!-- =========================
+             COMPROBANTE DE PEDIDO
+             ========================= -->
 
         <section class="receipt-page" id="receipt">
 
             <div class="receipt-page-content">
 
-
                 <div class="checkout-brand">
-
                     <p>PHOENIX STORE</p>
-
-                    <span>TU MEJOR RECARGA</span>
-
+                    <span>COMPROBANTE DE PEDIDO</span>
                 </div>
-
-
-                <div class="receipt-title">
-
-                    <p>PEDIDO CREADO</p>
-
-                    <h2>COMPROBANTE DE PEDIDO</h2>
-
-                </div>
-
 
                 <div class="receipt-box">
 
-
-                    <!-- CONFIRMACIÓN -->
-
-                    <div class="receipt-success">
-
-                        <div class="success-icon">
-                            ✓
-                        </div>
-
-                        <h3>
-                            ¡PEDIDO PREPARADO!
-                        </h3>
-
-                        <p>
-                            Tu pedido está listo para ser enviado
-                            a Phoenix Store.
-                        </p>
-
+                    <div class="receipt-header">
+                        <span>✓</span>
+                        <h2>PEDIDO GENERADO</h2>
+                        <p>Tu pedido ha sido registrado correctamente.</p>
                     </div>
-
-
-                    <!-- NÚMERO DE PEDIDO -->
 
                     <div class="receipt-number-box">
+                        <span>NÚMERO DE PEDIDO</span>
+                        <strong id="receipt-number">-</strong>
+                    </div>
 
-                        <span>
-                            NÚMERO DE PEDIDO
-                        </span>
+                    <div class="receipt-details">
 
-                        <strong id="receipt-number">
-                            -
-                        </strong>
+                        <div class="receipt-row">
+                            <span>Producto</span>
+                            <strong id="receipt-producto">-</strong>
+                        </div>
+
+                        <div class="receipt-row">
+                            <span>Precio</span>
+                            <strong id="receipt-precio">-</strong>
+                        </div>
+
+                        <div class="receipt-row">
+                            <span>ID del jugador</span>
+                            <strong id="receipt-id">-</strong>
+                        </div>
+
+                        <div class="receipt-row">
+                            <span>Cliente</span>
+                            <strong id="receipt-cliente">-</strong>
+                        </div>
+
+                        <div class="receipt-row">
+                            <span>Método de pago</span>
+                            <strong id="receipt-pago">-</strong>
+                        </div>
 
                     </div>
 
-
-                    <!-- DATOS DEL PEDIDO -->
-
-                    <div class="receipt-data">
-
-
-                        <div class="receipt-row">
-
-                            <span>
-                                JUEGO
-                            </span>
-
-                            <strong>
-                                Blood Strike
-                            </strong>
-
-                        </div>
-
-
-                        <div class="receipt-row">
-
-                            <span>
-                                PRODUCTO
-                            </span>
-
-                            <strong id="receipt-producto">
-                                -
-                            </strong>
-
-                        </div>
-
-
-                        <div class="receipt-row">
-
-                            <span>
-                                PRECIO
-                            </span>
-
-                            <strong id="receipt-precio">
-                                -
-                            </strong>
-
-                        </div>
-
-
-                        <div class="receipt-row">
-
-                            <span>
-                                ID DEL JUGADOR
-                            </span>
-
-                            <strong id="receipt-id">
-                                -
-                            </strong>
-
-                        </div>
-
-
-                        <div class="receipt-row">
-
-                            <span>
-                                CLIENTE
-                            </span>
-
-                            <strong id="receipt-cliente">
-                                -
-                            </strong>
-
-                        </div>
-
-
-                        <div class="receipt-row">
-
-                            <span>
-                                MÉTODO DE PAGO
-                            </span>
-
-                            <strong id="receipt-pago">
-                                -
-                            </strong>
-
-                        </div>
-
-
+                    <div class="receipt-message">
+                        <p>
+                            Ahora puedes enviar este pedido por WhatsApp
+                            para que Phoenix Store verifique tu pago y procese
+                            la recarga.
+                        </p>
                     </div>
 
-
-                    <!-- AVISO -->
-
-                    <div class="receipt-warning">
-
-                        📸
-
-                        <span>
-                            Después de enviar el pedido,
-                            adjunta en WhatsApp la captura
-                            de tu comprobante de Pago Móvil.
-                        </span>
-
-                    </div>
-
-
-                    <!-- WHATSAPP -->
-
-                    <button
-                        type="button"
-                        class="checkout-button whatsapp-button"
-                        onclick="enviarWhatsApp()"
-                    >
+                    <button type="button" class="whatsapp-button" onclick="enviarWhatsApp()">
                         ENVIAR PEDIDO POR WHATSAPP
                     </button>
 
-
-                    <!-- VOLVER -->
-
-                    <button
-                        type="button"
-                        class="back-button receipt-back"
-                        onclick="volverPago()"
-                    >
+                    <button type="button" class="receipt-back" onclick="volverPago()">
                         ← VOLVER AL PAGO
                     </button>
 
+                    <button type="button" class="receipt-back" onclick="volverTienda()">
+                        VOLVER A LA TIENDA
+                    </button>
 
                 </div>
 
@@ -816,24 +874,37 @@
 
     </main>
 
+    <!-- =========================
+         FOOTER
+         ========================= -->
 
-    <!-- PIE DE PÁGINA -->
     <footer>
 
-        <h2>PHOENIX STORE</h2>
+        <div class="footer-content">
 
-        <p>
-            TU MEJOR RECARGA
-        </p>
+            <div class="footer-brand">
+                <img src="assets/phoenix-store.png" alt="Phoenix Store">
+                <p>Tu mejor recarga.</p>
+            </div>
 
-        <small>
-            © 2026 Phoenix Store. Todos los derechos reservados.
-        </small>
+            <div class="footer-support">
+                <h3>¿NECESITAS AYUDA?</h3>
+
+                <button type="button" onclick="soporte()">
+                    CONTACTAR SOPORTE
+                </button>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Phoenix Store — Todos los derechos reservados.
+        </div>
 
     </footer>
 
-
-    <script src="app.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="app.js?v=2"></script>
 
 </body>
 </html>

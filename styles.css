@@ -1641,4 +1641,465 @@ body.receipt-active > footer {
         padding: 13px 16px;
         font-size: 12px;
     }
+}/* =========================================================
+   PANTALLA INDIVIDUAL - BLOOD STRIKE
+   ========================================================= */
+
+.blood-strike-page {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(255, 193, 7, 0.10),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom,
+            rgba(255, 193, 7, 0.05),
+            transparent 40%
+        ),
+        #050505;
+
+    color: #ffffff;
+
+    padding: 30px 20px 60px;
+}
+
+
+.blood-strike-page.active {
+    display: block;
+}
+
+
+.blood-strike-page-content {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   OCULTAR LA TIENDA CUANDO BLOOD STRIKE ESTÁ ACTIVO
+   ========================================================= */
+
+body.blood-strike-active > header,
+body.blood-strike-active > main > section:not(.blood-strike-page),
+body.blood-strike-active > footer {
+    display: none;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+   ========================================================= */
+
+.blood-strike-page .back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 20px;
+
+    margin-bottom: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #202020 0%,
+            #111111 55%,
+            #080808 100%
+        );
+
+    color: #d8d8d8;
+
+    border: 1px solid #6e550e;
+    border-radius: 8px;
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.blood-strike-page .back-button:hover {
+    transform: translateY(-1px);
+
+    color: #ffd21a;
+
+    border-color: #d6a900;
+}
+
+
+/* =========================================================
+   ENCABEZADO BLOOD STRIKE
+   ========================================================= */
+
+.blood-strike-page .checkout-brand {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+
+.blood-strike-page .checkout-brand p {
+    margin: 0;
+
+    color: #ffd21a;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+
+.blood-strike-page .checkout-brand span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.blood-strike-page .checkout-title {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+
+.blood-strike-page .checkout-title p {
+    margin: 0 0 5px;
+
+    color: #a9a9a9;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.blood-strike-page .checkout-title h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 15px rgba(255, 193, 7, 0.25);
+}
+
+
+/* =========================================================
+   SECCIONES DE PRODUCTOS
+   ========================================================= */
+
+.game-products-section {
+    margin-top: 35px;
+}
+
+
+.game-products-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #4e3d0b;
+}
+
+
+.game-products-heading > span {
+    font-size: 27px;
+}
+
+
+.game-products-heading p {
+    margin: 0 0 3px;
+
+    color: #8f8f8f;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.game-products-heading h3 {
+    margin: 0;
+
+    color: #ffd21a;
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   TARJETAS
+   ========================================================= */
+
+.blood-strike-page .product-card {
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.blood-strike-page .product-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ffd21a,
+            transparent
+        );
+
+    opacity: 0.7;
+}
+
+
+/* =========================================================
+   PASES
+   ========================================================= */
+
+.passes-section {
+    margin-top: 50px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid rgba(255, 193, 7, 0.12);
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .blood-strike-page {
+        padding: 20px 14px 45px;
+    }
+
+
+    .blood-strike-page .checkout-title h2 {
+        font-size: 27px;
+    }
+
+
+    .game-products-heading h3 {
+        font-size: 18px;
+    }
+
+
+    .blood-strike-page .back-button {
+        width: 100%;
+        margin-bottom: 22px;
+    }
+}
+
+/* =========================================
+   BOTONES - PANTALLA DE PAGO MÓVIL
+========================================= */
+
+.payment-page .payment-button,
+.payment-page .payment-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 52px;
+    margin-top: 14px;
+    padding: 14px 20px;
+
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* =========================================
+   YA REALICÉ EL PAGO
+========================================= */
+
+.payment-page .payment-button {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffe45c 0%,
+            #ffd21a 45%,
+            #c99a00 100%
+        );
+
+    color: #080808;
+
+    border: 1px solid #ffe45c;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+
+/* Brillo del botón */
+
+.payment-page .payment-button::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -100%;
+
+    width: 60%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left 0.5s ease;
+}
+
+
+.payment-page .payment-button:hover::before {
+    left: 140%;
+}
+
+
+.payment-page .payment-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 20px rgba(255, 193, 7, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+
+.payment-page .payment-button:active {
+    transform: translateY(0);
+
+    box-shadow:
+        0 2px 7px rgba(0, 0, 0, 0.4);
+}
+
+
+/* =========================================
+   VOLVER AL PEDIDO
+========================================= */
+
+.payment-page .payment-back {
+    background:
+        linear-gradient(
+            145deg,
+            #242424 0%,
+            #151515 55%,
+            #090909 100%
+        );
+
+    color: #bdbdbd;
+
+    border: 1px solid #4d4d4d;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+.payment-page .payment-back:hover {
+    transform: translateY(-1px);
+
+    color: #ffd21a;
+
+    border-color: #9d7b0a;
+
+    box-shadow:
+        0 5px 14px rgba(255, 193, 7, 0.12);
+}
+
+
+.payment-page .payment-back:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   MÓVIL
+========================================= */
+
+@media (max-width: 600px) {
+
+    .payment-page .payment-button,
+    .payment-page .payment-back {
+        min-height: 50px;
+        padding: 13px 16px;
+        font-size: 13px;
+    }
 }

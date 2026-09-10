@@ -1,3 +1,8 @@
+/* =================================
+   PHOENIX STORE
+   SISTEMA DE PEDIDOS
+================================= */
+
 let pedidoActual = {
     producto: "",
     precio: "",
@@ -9,28 +14,142 @@ let pedidoActual = {
 
 
 /* =================================
+   UTILIDAD: IR ARRIBA
+================================= */
+
+function irArriba() {
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
+}
+
+
+/* =================================
+   BLOOD STRIKE
+================================= */
+
+function abrirBloodStrike() {
+
+    const pagina = document.getElementById("blood-strike-page");
+
+    if (!pagina) {
+        console.error("No se encontró la pantalla de Blood Strike.");
+        return;
+    }
+
+    /* Ocultar cualquier pantalla anterior */
+
+    document.body.classList.remove(
+        "checkout-active",
+        "payment-active",
+        "receipt-active"
+    );
+
+    const checkout = document.getElementById("checkout");
+    const payment = document.getElementById("payment");
+    const receipt = document.getElementById("receipt");
+
+    if (checkout) checkout.classList.remove("active");
+    if (payment) payment.classList.remove("active");
+    if (receipt) receipt.classList.remove("active");
+
+    /* Mostrar Blood Strike */
+
+    document.body.classList.add("blood-strike-active");
+    pagina.classList.add("active");
+
+    irArriba();
+}
+
+
+/* =================================
+   CERRAR BLOOD STRIKE
+================================= */
+
+function cerrarBloodStrike() {
+
+    const pagina = document.getElementById("blood-strike-page");
+
+    if (!pagina) {
+        return;
+    }
+
+    pagina.classList.remove("active");
+    document.body.classList.remove("blood-strike-active");
+
+    irArriba();
+}
+
+
+/* =================================
    COMPRAR PRODUCTO
 ================================= */
 
 function comprar(producto, precio) {
 
+    /* Guardar producto */
+
     pedidoActual.producto = producto;
     pedidoActual.precio = precio;
 
-    document.getElementById("checkout-producto").textContent =
-        producto;
+    /* Mostrar producto en el pedido */
 
-    document.getElementById("checkout-precio").textContent =
-        precio;
+    const checkoutProducto =
+        document.getElementById("checkout-producto");
+
+    const checkoutPrecio =
+        document.getElementById("checkout-precio");
+
+    if (checkoutProducto) {
+        checkoutProducto.textContent = producto;
+    }
+
+    if (checkoutPrecio) {
+        checkoutPrecio.textContent = precio;
+    }
+
+    /* Ocultar Blood Strike */
+
+    const bloodStrike =
+        document.getElementById("blood-strike-page");
+
+    if (bloodStrike) {
+        bloodStrike.classList.remove("active");
+    }
+
+    document.body.classList.remove("blood-strike-active");
+
+    /* Ocultar otras pantallas */
+
+    const payment =
+        document.getElementById("payment");
+
+    const receipt =
+        document.getElementById("receipt");
+
+    if (payment) payment.classList.remove("active");
+    if (receipt) receipt.classList.remove("active");
+
+    document.body.classList.remove(
+        "payment-active",
+        "receipt-active"
+    );
+
+    /* Mostrar pantalla de pedido */
+
+    const checkout =
+        document.getElementById("checkout");
+
+    if (!checkout) {
+        console.error("No se encontró la pantalla de pedido.");
+        return;
+    }
 
     document.body.classList.add("checkout-active");
+    checkout.classList.add("active");
 
-    document.getElementById("checkout").classList.add("active");
-
-    window.scrollTo({
-        top: 0,
-        behavior: "instant"
-    });
+    irArriba();
 }
 
 
@@ -40,14 +159,33 @@ function comprar(producto, precio) {
 
 function volverTienda() {
 
-    document.body.classList.remove("checkout-active");
+    /* Ocultar todas las pantallas */
 
-    document.getElementById("checkout").classList.remove("active");
+    const checkout =
+        document.getElementById("checkout");
 
-    window.scrollTo({
-        top: 0,
-        behavior: "instant"
-    });
+    const payment =
+        document.getElementById("payment");
+
+    const receipt =
+        document.getElementById("receipt");
+
+    const bloodStrike =
+        document.getElementById("blood-strike-page");
+
+    if (checkout) checkout.classList.remove("active");
+    if (payment) payment.classList.remove("active");
+    if (receipt) receipt.classList.remove("active");
+    if (bloodStrike) bloodStrike.classList.remove("active");
+
+    document.body.classList.remove(
+        "checkout-active",
+        "payment-active",
+        "receipt-active",
+        "blood-strike-active"
+    );
+
+    irArriba();
 }
 
 
@@ -55,73 +193,138 @@ function volverTienda() {
    FORMULARIO DEL PEDIDO
 ================================= */
 
-document.getElementById("checkout-form").addEventListener(
-    "submit",
-    function(event) {
+document.addEventListener("DOMContentLoaded", function() {
+
+    const formulario =
+        document.getElementById("checkout-form");
+
+    if (!formulario) {
+        console.error("No se encontró checkout-form.");
+        return;
+    }
+
+    formulario.addEventListener("submit", function(event) {
 
         event.preventDefault();
 
-        const idJugador =
-            document.getElementById("player-id").value.trim();
+        /* Obtener datos */
 
-        const nombreCliente =
-            document.getElementById("customer-name").value.trim();
+        const campoId =
+            document.getElementById("player-id");
 
-        const metodoPago =
-            document.getElementById("payment-method").value;
+        const campoNombre =
+            document.getElementById("customer-name");
 
+        const campoPago =
+            document.getElementById("payment-method");
 
-        if (!idJugador || !nombreCliente || !metodoPago) {
+        if (!campoId || !campoNombre || !campoPago) {
+            console.error(
+                "No se encontraron todos los campos del formulario."
+            );
             return;
         }
 
+        const idJugador =
+            campoId.value.trim();
 
-        /* Guardar información */
+        const nombreCliente =
+            campoNombre.value.trim();
 
-        pedidoActual.idJugador = idJugador;
+        const metodoPago =
+            campoPago.value;
 
-        pedidoActual.nombreCliente = nombreCliente;
+        /* Validar */
 
-        pedidoActual.metodoPago = metodoPago;
+        if (
+            !idJugador ||
+            !nombreCliente ||
+            !metodoPago
+        ) {
+            return;
+        }
 
+        /* Guardar datos */
+
+        pedidoActual.idJugador =
+            idJugador;
+
+        pedidoActual.nombreCliente =
+            nombreCliente;
+
+        pedidoActual.metodoPago =
+            metodoPago;
 
         /* Crear número de pedido */
 
         pedidoActual.numeroPedido =
             "PS-" +
-            Date.now().toString().slice(-8);
+            Date.now()
+                .toString()
+                .slice(-8);
 
+        /* Mostrar información en Pago Móvil */
 
-        /* Mostrar producto y precio */
+        const paymentProducto =
+            document.getElementById("payment-producto");
 
-        document.getElementById("payment-producto").textContent =
-            pedidoActual.producto;
+        const paymentPrecio =
+            document.getElementById("payment-precio");
 
-        document.getElementById("payment-precio").textContent =
-            pedidoActual.precio;
+        const paymentTotal =
+            document.getElementById("payment-total");
 
-        document.getElementById("payment-total").textContent =
-            pedidoActual.precio;
+        if (paymentProducto) {
+            paymentProducto.textContent =
+                pedidoActual.producto;
+        }
 
+        if (paymentPrecio) {
+            paymentPrecio.textContent =
+                pedidoActual.precio;
+        }
 
-        /* Cambiar a pantalla de Pago Móvil */
+        if (paymentTotal) {
+            paymentTotal.textContent =
+                pedidoActual.precio;
+        }
 
-        document.body.classList.remove("checkout-active");
+        /* Ocultar pedido */
 
-        document.getElementById("checkout").classList.remove("active");
+        const checkout =
+            document.getElementById("checkout");
 
-        document.body.classList.add("payment-active");
+        if (checkout) {
+            checkout.classList.remove("active");
+        }
 
-        document.getElementById("payment").classList.add("active");
+        document.body.classList.remove(
+            "checkout-active"
+        );
 
+        /* Mostrar Pago Móvil */
 
-        window.scrollTo({
-            top: 0,
-            behavior: "instant"
-        });
+        const payment =
+            document.getElementById("payment");
 
-    }
-);
+        if (!payment) {
+            console.error(
+                "No se encontró la pantalla de Pago Móvil."
+            );
+            return;
+        }
+
+        document.body.classList.add(
+            "payment-active"
+        );
+
+        payment.classList.add("active");
+
+        irArriba();
+
+    });
+
+});
 
 
 /* =================================
@@ -130,18 +333,29 @@ document.getElementById("checkout-form").addEventListener(
 
 function volverPedido() {
 
-    document.body.classList.remove("payment-active");
+    const payment =
+        document.getElementById("payment");
 
-    document.getElementById("payment").classList.remove("active");
+    const checkout =
+        document.getElementById("checkout");
 
-    document.body.classList.add("checkout-active");
+    if (payment) {
+        payment.classList.remove("active");
+    }
 
-    document.getElementById("checkout").classList.add("active");
+    document.body.classList.remove(
+        "payment-active"
+    );
 
-    window.scrollTo({
-        top: 0,
-        behavior: "instant"
-    });
+    if (checkout) {
+        checkout.classList.add("active");
+    }
+
+    document.body.classList.add(
+        "checkout-active"
+    );
+
+    irArriba();
 }
 
 
@@ -151,57 +365,111 @@ function volverPedido() {
 
 function pagoRealizado() {
 
+    /* Verificar que exista un pedido */
+
+    if (
+        !pedidoActual.numeroPedido ||
+        !pedidoActual.producto ||
+        !pedidoActual.precio
+    ) {
+        console.error(
+            "No existe un pedido válido."
+        );
+        return;
+    }
+
     /* Número de pedido */
 
-    document.getElementById("receipt-number").textContent =
-        pedidoActual.numeroPedido;
+    const receiptNumber =
+        document.getElementById("receipt-number");
 
+    if (receiptNumber) {
+        receiptNumber.textContent =
+            pedidoActual.numeroPedido;
+    }
 
     /* Producto */
 
-    document.getElementById("receipt-producto").textContent =
-        pedidoActual.producto;
+    const receiptProducto =
+        document.getElementById("receipt-producto");
 
+    if (receiptProducto) {
+        receiptProducto.textContent =
+            pedidoActual.producto;
+    }
 
     /* Precio */
 
-    document.getElementById("receipt-precio").textContent =
-        pedidoActual.precio;
+    const receiptPrecio =
+        document.getElementById("receipt-precio");
 
+    if (receiptPrecio) {
+        receiptPrecio.textContent =
+            pedidoActual.precio;
+    }
 
     /* ID */
 
-    document.getElementById("receipt-id").textContent =
-        pedidoActual.idJugador;
+    const receiptId =
+        document.getElementById("receipt-id");
 
+    if (receiptId) {
+        receiptId.textContent =
+            pedidoActual.idJugador;
+    }
 
     /* Cliente */
 
-    document.getElementById("receipt-cliente").textContent =
-        pedidoActual.nombreCliente;
+    const receiptCliente =
+        document.getElementById("receipt-cliente");
 
+    if (receiptCliente) {
+        receiptCliente.textContent =
+            pedidoActual.nombreCliente;
+    }
 
     /* Método de pago */
 
-    document.getElementById("receipt-pago").textContent =
-        pedidoActual.metodoPago;
+    const receiptPago =
+        document.getElementById("receipt-pago");
 
+    if (receiptPago) {
+        receiptPago.textContent =
+            pedidoActual.metodoPago;
+    }
 
-    /* Cambiar a comprobante */
+    /* Ocultar Pago Móvil */
 
-    document.body.classList.remove("payment-active");
+    const payment =
+        document.getElementById("payment");
 
-    document.getElementById("payment").classList.remove("active");
+    if (payment) {
+        payment.classList.remove("active");
+    }
 
-    document.body.classList.add("receipt-active");
+    document.body.classList.remove(
+        "payment-active"
+    );
 
-    document.getElementById("receipt").classList.add("active");
+    /* Mostrar comprobante */
 
+    const receipt =
+        document.getElementById("receipt");
 
-    window.scrollTo({
-        top: 0,
-        behavior: "instant"
-    });
+    if (!receipt) {
+        console.error(
+            "No se encontró la pantalla de comprobante."
+        );
+        return;
+    }
+
+    document.body.classList.add(
+        "receipt-active"
+    );
+
+    receipt.classList.add("active");
+
+    irArriba();
 }
 
 
@@ -211,18 +479,29 @@ function pagoRealizado() {
 
 function volverPago() {
 
-    document.body.classList.remove("receipt-active");
+    const receipt =
+        document.getElementById("receipt");
 
-    document.getElementById("receipt").classList.remove("active");
+    const payment =
+        document.getElementById("payment");
 
-    document.body.classList.add("payment-active");
+    if (receipt) {
+        receipt.classList.remove("active");
+    }
 
-    document.getElementById("payment").classList.add("active");
+    document.body.classList.remove(
+        "receipt-active"
+    );
 
-    window.scrollTo({
-        top: 0,
-        behavior: "instant"
-    });
+    if (payment) {
+        payment.classList.add("active");
+    }
+
+    document.body.classList.add(
+        "payment-active"
+    );
+
+    irArriba();
 }
 
 
@@ -232,9 +511,18 @@ function volverPago() {
 
 function enviarWhatsApp() {
 
+    if (
+        !pedidoActual.numeroPedido ||
+        !pedidoActual.producto
+    ) {
+        console.error(
+            "No existe un pedido para enviar."
+        );
+        return;
+    }
+
     const numeroWhatsApp =
         "584120179772";
-
 
     const mensaje =
         "🔥 *PHOENIX STORE - NUEVO PEDIDO* 🔥\n\n" +
@@ -269,13 +557,11 @@ function enviarWhatsApp() {
 
         "📸 Enviaré el comprobante de pago por este chat.";
 
-
     const url =
         "https://wa.me/" +
         numeroWhatsApp +
         "?text=" +
         encodeURIComponent(mensaje);
-
 
     window.location.href = url;
 }
@@ -290,10 +576,8 @@ function soporte() {
     const numeroWhatsApp =
         "584120179772";
 
-
     const mensaje =
         "Hola, Phoenix Store. Necesito ayuda con una compra.";
-
 
     const url =
         "https://wa.me/" +
@@ -301,6 +585,38 @@ function soporte() {
         "?text=" +
         encodeURIComponent(mensaje);
 
-
     window.location.href = url;
 }
+
+
+/* =================================
+   HACER FUNCIONES DISPONIBLES
+   PARA LOS BOTONES DEL HTML
+================================= */
+
+window.abrirBloodStrike =
+    abrirBloodStrike;
+
+window.cerrarBloodStrike =
+    cerrarBloodStrike;
+
+window.comprar =
+    comprar;
+
+window.volverTienda =
+    volverTienda;
+
+window.volverPedido =
+    volverPedido;
+
+window.pagoRealizado =
+    pagoRealizado;
+
+window.volverPago =
+    volverPago;
+
+window.enviarWhatsApp =
+    enviarWhatsApp;
+
+window.soporte =
+    soporte;
