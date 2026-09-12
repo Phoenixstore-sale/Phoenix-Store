@@ -786,7 +786,126 @@ if (botonLogout) {
 // ==========================================
 // INICIAR PANEL
 // ==========================================
+async function cargarEstadisticasAdmin() {
 
+    const productosElemento =
+        document.getElementById("statActiveProducts");
+
+    const tasaElemento =
+        document.getElementById("statUsdtRate");
+
+    const juegosElemento =
+        document.getElementById("statActiveGames");
+
+    if (!productosElemento || !tasaElemento || !juegosElemento) {
+        return;
+    }
+
+    const token = obtenerTokenAdmin();
+
+    if (!token) {
+        return;
+    }
+
+    try {
+
+        /* ==============================
+           OBTENER PRODUCTOS ACTIVOS
+        ============================== */
+
+        const respuestaProductos = await fetch(
+            `${SUPABASE_PRODUCTOS_URL}?active=eq.true&select=id,game`,
+            {
+                method: "GET",
+
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (!respuestaProductos.ok) {
+            throw new Error(
+                `Error productos ${respuestaProductos.status}`
+            );
+        }
+
+        const productos =
+            await respuestaProductos.json();
+
+
+        /* ==============================
+           CONTAR PRODUCTOS
+        ============================== */
+
+        productosElemento.textContent =
+            productos.length;
+
+
+        /* ==============================
+           CONTAR JUEGOS
+        ============================== */
+
+        const juegosUnicos =
+            new Set(
+                productos
+                    .map(producto => producto.game)
+                    .filter(Boolean)
+            );
+
+        juegosElemento.textContent =
+            juegosUnicos.size;
+
+
+        /* ==============================
+           OBTENER TASA USDT
+        ============================== */
+
+        const respuestaTasa = await fetch(
+            `${SUPABASE_CONFIG_URL}?clave=eq.tasa_usdt&select=valor`,
+            {
+                method: "GET",
+
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (!respuestaTasa.ok) {
+            throw new Error(
+                `Error tasa ${respuestaTasa.status}`
+            );
+        }
+
+        const datosTasa =
+            await respuestaTasa.json();
+
+
+        if (datosTasa.length > 0) {
+
+            const tasa =
+                Number(datosTasa[0].valor);
+
+            tasaElemento.textContent =
+                `${tasa.toLocaleString("es-VE")} Bs`;
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando estadísticas:",
+            error
+        );
+
+        productosElemento.textContent = "—";
+        tasaElemento.textContent = "—";
+        juegosElemento.textContent = "—";
+    }
+}
 if (esPanelAdmin) {
 
     document.addEventListener(
@@ -796,7 +915,8 @@ if (esPanelAdmin) {
             cargarTasaAdmin();
 
             cargarProductosAdmin();
-
+        
+            cargarEstadisticasAdmin();
 
             const botonGuardarTasa =
                 document.getElementById(
