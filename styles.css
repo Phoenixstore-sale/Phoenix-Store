@@ -2225,3 +2225,300 @@ body.blood-strike-active > footer {
     font-size: 13px;
     color: #f2c400;
 }
+/* ==========================================
+   PHOENIX STORE - DASHBOARD ADMIN
+   CABECERA
+========================================== */
+
+.admin-panel-page {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(242, 196, 0, 0.08),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at top left,
+            rgba(242, 196, 0, 0.04),
+            transparent 30%
+        ),
+        #070707;
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   CABECERA
+========================================== */
+
+.admin-panel-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 20px 35px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #151515,
+            #0a0a0a
+        );
+
+    border-bottom: 1px solid #3d3300;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.45);
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   MARCA
+========================================== */
+
+.admin-panel-brand {
+    margin: 0 0 4px;
+
+    color: #f2c400;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    letter-spacing: 4px;
+}
+
+
+.admin-panel-header h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 25px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+
+/* ==========================================
+   BOTÓN CERRAR SESIÓN
+========================================== */
+
+.admin-logout-button {
+    padding: 11px 18px;
+
+    background: transparent;
+
+    color: #f2c400;
+
+    border: 1px solid #f2c400;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.admin-logout-button:hover {
+    background: #f2c400;
+
+    color: #080808;
+
+    box-shadow:
+        0 0 18px rgba(242, 196, 0, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+.admin-panel-content {
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 40px 25px 70px;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   SECCIONES
+========================================== */
+
+.admin-section {
+    margin-bottom: 30px;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #090909
+        );
+
+    border: 1px solid #302800;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.25);
+
+    box-sizing: border-box;
+}
+
+
+.admin-section:hover {
+    border-color: #4a3d00;
+}
+
+
+/* ==========================================
+   TÍTULOS DE SECCIÓN
+========================================== */
+
+.admin-section-heading {
+    margin-bottom: 22px;
+
+    padding-bottom: 16px;
+
+    border-bottom: 1px solid #292929;
+}
+
+
+.admin-section-heading > div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.admin-section-heading span {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 45px;
+    height: 45px;
+
+    background: #0b0b0b;
+
+    border: 1px solid #4a3d00;
+
+    border-radius: 9px;
+
+    font-size: 20px;
+
+    box-shadow:
+        0 0 15px rgba(242, 196, 0, 0.08);
+}
+
+
+.admin-section-heading p {
+    margin: 0 0 3px;
+
+    color: #f2c400;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.admin-section-heading h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 21px;
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* ==========================================
+   RESPONSIVE - TELÉFONO
+========================================== */
+
+@media (max-width: 700px) {
+
+    .admin-panel-header {
+        padding: 17px 18px;
+
+        align-items: flex-start;
+    }
+
+
+    .admin-panel-header h1 {
+        font-size: 18px;
+    }
+
+
+    .admin-panel-brand {
+        font-size: 10px;
+
+        letter-spacing: 3px;
+    }
+
+
+    .admin-logout-button {
+        padding: 9px 11px;
+
+        font-size: 10px;
+
+        white-space: nowrap;
+    }
+
+
+    .admin-panel-content {
+        padding: 22px 14px 50px;
+    }
+
+
+    .admin-section {
+        padding: 18px;
+
+        border-radius: 10px;
+    }
+
+
+    .admin-section-heading h2 {
+        font-size: 18px;
+    }
+
+}
