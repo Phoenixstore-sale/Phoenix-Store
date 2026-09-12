@@ -2712,4 +2712,290 @@ body.blood-strike-active > footer {
         margin-top: 5px;
     }
 
+}/* ==========================================
+   PHOENIX STORE - PRODUCTOS ADMIN
+========================================== */
+
+.admin-products-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+
+/* TARJETA */
+
+.admin-product-card {
+    position: relative;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #181818,
+            #090909
+        );
+
+    border: 1px solid #302800;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* LÍNEA DORADA SUPERIOR */
+
+.admin-product-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background: #f2c400;
+}
+
+
+.admin-product-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #5a4a00;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+
+/* INFORMACIÓN DEL PRODUCTO */
+
+.admin-product-info {
+    margin-bottom: 18px;
+}
+
+
+.admin-product-info h3 {
+    margin: 0 0 6px;
+
+    color: #ffffff;
+
+    font-size: 17px;
+    font-weight: 900;
+}
+
+
+.admin-product-info p {
+    margin: 0;
+
+    color: #f2c400;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+/* CAMPOS */
+
+.admin-product-fields {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 13px;
+}
+
+
+.admin-product-fields > div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+
+.admin-product-fields label {
+    color: #888888;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+/* INPUTS */
+
+.admin-product-fields input[type="number"] {
+    width: 100%;
+
+    padding: 11px;
+
+    background: #050505;
+
+    color: #f2c400;
+
+    border: 1px solid #303030;
+
+    border-radius: 6px;
+
+    outline: none;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    box-sizing: border-box;
+}
+
+
+.admin-product-fields input[type="number"]:focus {
+    border-color: #f2c400;
+
+    box-shadow:
+        0 0 12px rgba(242, 196, 0, 0.12);
+}
+
+
+/* ACTIVO */
+
+.admin-product-active {
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px;
+
+    background: #0d0d0d;
+
+    border: 1px solid #292929;
+
+    border-radius: 6px;
+
+    color: #bbbbbb !important;
+
+    cursor: pointer;
+}
+
+
+.admin-product-active input {
+    width: 16px;
+    height: 16px;
+
+    accent-color: #f2c400;
+
+    cursor: pointer;
+}
+
+
+/* BOTÓN GUARDAR */
+
+.admin-save-product-button {
+    width: 100%;
+
+    padding: 11px;
+
+    background: #f2c400;
+
+    color: #080808;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.admin-save-product-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 18px rgba(242, 196, 0, 0.25);
+}
+
+
+.admin-save-product-button:active {
+    transform: translateY(0);
+}
+
+
+/* MENSAJE DEL PRODUCTO */
+
+.admin-product-message {
+    grid-column: 1 / -1;
+
+    min-height: 16px;
+
+    margin: 0;
+
+    color: #f2c400;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* CARGANDO */
+
+.admin-loading {
+    padding: 30px;
+
+    color: #777777;
+
+    text-align: center;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* MÓVIL */
+
+@media (max-width: 700px) {
+
+    .admin-products-container {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-product-card {
+        padding: 17px;
+    }
+
+
+    .admin-product-info h3 {
+        font-size: 16px;
+    }
+
 }
