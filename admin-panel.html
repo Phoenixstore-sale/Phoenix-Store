@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Phoenix Store | Panel</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+
+<body class="admin-panel-page">
+
+
+    <header class="admin-panel-header">
+
+        <div>
+
+            <p class="admin-panel-brand">
+                PHOENIX STORE
+            </p>
+
+            <h1>
+                PANEL DE ADMINISTRACIÓN
+            </h1>
+
+        </div>
+
+
+        <button
+            id="adminLogoutButton"
+            class="admin-logout-button"
+        >
+            CERRAR SESIÓN
+        </button>
+
+    </header>
+
+
+    <main class="admin-panel-content">
+
+
+        <!-- =================================
+             TASA USDT
+        ================================== -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-heading">
+
+                <div>
+
+                    <span>
+                        📈
+                    </span>
+
+                    <div>
+
+                        <p>
+                            CONFIGURACIÓN
+                        </p>
+
+                        <h2>
+                            TASA USDT
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-rate-box">
+
+                <label for="adminRate">
+                    1 USDT =
+                </label>
+
+                <input
+                    type="number"
+                    id="adminRate"
+                    min="0"
+                    step="0.01"
+                >
+
+                <span>
+                    Bs
+                </span>
+
+                <button
+                    id="saveRateButton"
+                >
+                    GUARDAR TASA
+                </button>
+
+            </div>
+
+
+            <p
+                id="rateMessage"
+                class="admin-message"
+            ></p>
+
+        </section>
+
+
+
+        <!-- =================================
+             PRODUCTOS
+        ================================== -->
+
+        <section class="admin-section">
+
+            <div class="admin-section-heading">
+
+                <div>
+
+                    <span>
+                        📦
+                    </span>
+
+                    <div>
+
+                        <p>
+                            CATÁLOGO
+                        </p>
+
+                        <h2>
+                            PRODUCTOS
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="adminProductsContainer"
+                class="admin-products-container"
+            >
+
+                <div class="admin-loading">
+                    CARGANDO PRODUCTOS...
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="supabase-config.js"></script>
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
