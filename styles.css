@@ -2521,4 +2521,195 @@ body.blood-strike-active > footer {
         font-size: 18px;
     }
 
+}/* ==========================================
+   PHOENIX STORE - TASA USDT
+   TARJETA DE CONFIGURACIÓN
+========================================== */
+
+.admin-rate-box {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111111,
+            #080808
+        );
+
+    border: 1px solid #292929;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   TEXTO "1 USDT ="
+========================================== */
+
+.admin-rate-box label {
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================
+   INPUT DE LA TASA
+========================================== */
+
+.admin-rate-box input {
+    width: 150px;
+
+    padding: 13px 14px;
+
+    background: #050505;
+
+    color: #f2c400;
+
+    border: 1px solid #4a3d00;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 18px;
+    font-weight: 800;
+
+    text-align: center;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.admin-rate-box input:focus {
+    border-color: #f2c400;
+
+    box-shadow:
+        0 0 16px rgba(242, 196, 0, 0.15);
+}
+
+
+/* ==========================================
+   "BS"
+========================================== */
+
+.admin-rate-box > span {
+    color: #aaaaaa;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   BOTÓN GUARDAR
+========================================== */
+
+#saveRateButton {
+    margin-left: auto;
+
+    padding: 13px 20px;
+
+    background: #f2c400;
+
+    color: #080808;
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#saveRateButton:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 20px rgba(242, 196, 0, 0.3);
+}
+
+
+#saveRateButton:active {
+    transform: translateY(0);
+}
+
+
+/* ==========================================
+   MENSAJE DE LA TASA
+========================================== */
+
+.admin-message {
+    min-height: 18px;
+
+    margin: 12px 2px 0;
+
+    color: #f2c400;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* ==========================================
+   RESPONSIVE - TASA
+========================================== */
+
+@media (max-width: 700px) {
+
+    .admin-rate-box {
+        flex-wrap: wrap;
+
+        padding: 17px;
+    }
+
+
+    .admin-rate-box label {
+        width: 100%;
+    }
+
+
+    .admin-rate-box input {
+        flex: 1;
+
+        min-width: 100px;
+
+        width: auto;
+    }
+
+
+    #saveRateButton {
+        width: 100%;
+
+        margin-left: 0;
+
+        margin-top: 5px;
+    }
+
 }
