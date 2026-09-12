@@ -2998,4 +2998,113 @@ body.blood-strike-active > footer {
         font-size: 16px;
     }
 
+}/* ==========================================
+   PHOENIX STORE - NAVEGACIÓN ADMIN
+========================================== */
+
+.admin-panel-nav {
+    position: sticky;
+
+    top: 88px;
+
+    z-index: 90;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 12px 20px;
+
+    background: rgba(8, 8, 8, 0.96);
+
+    border-bottom: 1px solid #252525;
+
+    box-sizing: border-box;
+
+    backdrop-filter: blur(10px);
+}
+
+
+.admin-nav-button {
+    padding: 10px 17px;
+
+    background: transparent;
+
+    color: #888888;
+
+    border: 1px solid #292929;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.8px;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.admin-nav-button:hover {
+    color: #ffffff;
+
+    border-color: #4a3d00;
+
+    background: #111111;
+}
+
+
+.admin-nav-button.active {
+    color: #080808;
+
+    background: #f2c400;
+
+    border-color: #f2c400;
+
+    box-shadow:
+        0 0 16px rgba(242, 196, 0, 0.18);
+}
+
+
+/* ==========================================
+   MÓVIL
+========================================== */
+
+@media (max-width: 700px) {
+
+    .admin-panel-nav {
+        top: 76px;
+
+        justify-content: flex-start;
+
+        overflow-x: auto;
+
+        padding: 10px 14px;
+
+        scrollbar-width: none;
+    }
+
+
+    .admin-panel-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .admin-nav-button {
+        flex-shrink: 0;
+
+        padding: 9px 13px;
+
+        font-size: 10px;
+    }
+
 }
