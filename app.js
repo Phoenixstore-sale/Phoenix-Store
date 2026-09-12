@@ -620,3 +620,243 @@ window.enviarWhatsApp =
 
 window.soporte =
     soporte;
+
+    // ==========================================
+// CONEXIÓN CON SUPABASE
+// ==========================================
+
+const SUPABASE_REST_URL = `${SUPABASE_URL}/rest/v1/Productos`;
+
+async function obtenerProductosBloodStrike() {
+    try {
+        const respuesta = await fetch(
+            `${SUPABASE_REST_URL}?game=eq.Blood%20Strike&active=eq.true&order=sort_order.asc`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`
+                }
+            }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error(`Error de Supabase: ${respuesta.status}`);
+        }
+
+        const productos = await respuesta.json();
+
+        console.log("Productos recibidos desde Supabase:", productos);
+
+        return productos;
+
+    } catch (error) {
+        console.error("No se pudieron cargar los productos:", error);
+        return [];
+    }
+}
+// ==========================================
+// CARGAR PAQUETES DE ORO EN BLOOD STRIKE
+// ==========================================
+
+async function cargarPaquetesOro() {
+
+    const contenedor = document.getElementById("bloodStrikeGoldProducts");
+
+    if (!contenedor) {
+        return;
+    }
+
+    const productos = await obtenerProductosBloodStrike();
+
+    const tasaUSDT = await obtenerTasaUSDT();
+
+    // Limpiar el mensaje de carga
+    contenedor.innerHTML = "";
+
+    // Si no hay productos
+    if (productos.length === 0) {
+
+        contenedor.innerHTML = `
+            <div class="products-loading">
+                NO HAY PAQUETES DISPONIBLES
+            </div>
+        `;
+
+        return;
+    }
+
+    // Crear las tarjetas
+    productos
+        .filter(producto => producto.category === "Oro")
+        .forEach(producto => {
+
+            const precioBs = producto.price * tasaUSDT;
+
+            const tarjeta = document.createElement("article");
+
+            tarjeta.className = "product-card";
+
+            tarjeta.innerHTML = `
+                <div class="product-amount">
+                    ${producto.name.replace(" Barras de oro", "")}
+                </div>
+
+                <p class="product-description">
+                    Oro
+                </p>
+
+                <div class="product-price">
+                    ${precioBs.toLocaleString("es-VE")} Bs
+                </div>
+
+                <button>
+                    COMPRAR
+                </button>
+            `;
+
+            const boton = tarjeta.querySelector("button");
+
+            boton.addEventListener("click", function () {
+
+                comprar(
+                    producto.name,
+                    `${precioBs.toLocaleString("es-VE")} Bs`
+                );
+
+            });
+
+            contenedor.appendChild(tarjeta);
+
+        });
+
+}// Cargar productos cuando la página esté lista
+document.addEventListener("DOMContentLoaded", function () {
+    cargarPaquetesOro();
+});
+// ==========================================
+// CARGAR PASES EN BLOOD STRIKE
+// ==========================================
+
+async function cargarPases() {
+
+    const contenedor = document.getElementById("bloodStrikePassProducts");
+
+    if (!contenedor) {
+        return;
+    }
+
+    const productos = await obtenerProductosBloodStrike();
+
+    const tasaUSDT = await obtenerTasaUSDT();
+
+    // Limpiar el mensaje de carga
+    contenedor.innerHTML = "";
+
+    // Buscar solamente los productos de categoría Pases
+    const pases = productos.filter(
+        producto => producto.category === "Pases"
+    );
+
+    // Si no hay pases disponibles
+    if (pases.length === 0) {
+
+        contenedor.innerHTML = `
+            <div class="products-loading">
+                NO HAY PASES DISPONIBLES
+            </div>
+        `;
+
+        return;
+    }
+
+    // Crear las tarjetas de los pases
+    pases.forEach(producto => {
+
+        const precioBs = producto.price * tasaUSDT;
+
+        const tarjeta = document.createElement("article");
+
+        tarjeta.className = "product-card special";
+
+        tarjeta.innerHTML = `
+            <div class="product-amount">
+                ${producto.name.toUpperCase()}
+            </div>
+
+            <p class="product-description">
+                Blood Strike
+            </p>
+
+            <div class="product-price">
+                ${precioBs.toLocaleString("es-VE")} Bs
+            </div>
+
+            <button>
+                COMPRAR
+            </button>
+        `;
+
+        const boton = tarjeta.querySelector("button");
+
+        boton.addEventListener("click", function () {
+
+            comprar(
+                producto.name,
+                `${precioBs.toLocaleString("es-VE")} Bs`
+            );
+
+        });
+
+        contenedor.appendChild(tarjeta);
+
+    });
+}
+
+
+// Cargar los pases cuando la página esté lista
+document.addEventListener("DOMContentLoaded", function () {
+    cargarPases();
+});
+// ==========================================
+// OBTENER TASA USDT DESDE SUPABASE
+// ==========================================
+
+async function obtenerTasaUSDT() {
+
+    try {
+
+        const respuesta = await fetch(
+            `${SUPABASE_URL}/rest/v1/Configuracion?clave=eq.tasa_usdt&select=valor`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`
+                }
+            }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error(`Error de Supabase: ${respuesta.status}`);
+        }
+
+        const datos = await respuesta.json();
+
+        if (!datos.length) {
+            throw new Error("No se encontró la tasa USDT");
+        }
+
+        const tasa = Number(datos[0].valor);
+
+        console.log("Tasa USDT recibida desde Supabase:", tasa);
+
+        return tasa;
+
+    } catch (error) {
+
+        console.error("No se pudo obtener la tasa USDT:", error);
+
+        return 970;
+    }
+}

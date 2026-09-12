@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Phoenix Store | Administración</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
+
+</head>
+
+
+<body class="admin-page">
+
+
+    <!-- =================================
+         LOGIN ADMINISTRADOR
+    ================================== -->
+
+    <main class="admin-login">
+
+        <div class="admin-login-container">
+
+            <div class="admin-logo">
+
+                <img
+                    src="assets/phoenix-store.png"
+                    alt="Phoenix Store"
+                >
+
+            </div>
+
+
+            <p class="admin-subtitle">
+                PHOENIX STORE
+            </p>
+
+            <h1>
+                PANEL DE ADMINISTRACIÓN
+            </h1>
+
+
+            <form id="adminLoginForm">
+
+
+                <div class="admin-form-group">
+
+                    <label for="adminEmail">
+                        CORREO
+                    </label>
+
+                    <input
+                        type="email"
+                        id="adminEmail"
+                        placeholder="Correo del administrador"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="adminPassword">
+                        CONTRASEÑA
+                    </label>
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Contraseña"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="admin-login-button"
+                >
+                    INICIAR SESIÓN
+                </button>
+
+
+                <p
+                    id="adminLoginMessage"
+                    class="admin-login-message"
+                ></p>
+
+
+            </form>
+
+
+        </div>
+
+    </main>
+
+
+    <script src="supabase-config.js"></script>
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
