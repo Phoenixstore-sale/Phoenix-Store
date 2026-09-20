@@ -906,6 +906,228 @@ async function cargarEstadisticasAdmin() {
         juegosElemento.textContent = "—";
     }
 }
+/* ==========================================
+   NAVEGACIÓN DEL PANEL
+========================================== */
+
+function configurarNavegacionAdmin() {
+
+    const botones =
+        document.querySelectorAll(".admin-nav-button");
+
+
+    const secciones = {
+
+        resumen:
+            document.getElementById(
+                "adminSectionResumen"
+            ),
+
+        productos:
+            document.getElementById(
+                "adminSectionProductos"
+            ),
+
+        configuracion:
+            document.getElementById(
+                "adminSectionConfiguracion"
+            )
+
+    };
+
+
+    if (!botones.length) {
+
+        console.error(
+            "No se encontraron botones de navegación."
+        );
+
+        return;
+    }
+
+
+    function mostrarSeccion(nombreSeccion, botonActivo) {
+
+        /* Ocultar todas las secciones */
+
+        Object.values(secciones).forEach(
+            function (seccion) {
+
+                if (seccion) {
+                    seccion.style.display = "none";
+                }
+
+            }
+        );
+
+
+        /* Mostrar la sección seleccionada */
+
+        const seccion =
+            secciones[nombreSeccion];
+
+
+        if (seccion) {
+
+            if (nombreSeccion === "resumen") {
+
+                seccion.style.display = "grid";
+
+            } else {
+
+                seccion.style.display = "block";
+
+            }
+
+        }
+
+
+        /* Cambiar botón activo */
+
+        botones.forEach(
+            function (boton) {
+
+                boton.classList.remove("active");
+
+            }
+        );
+
+
+        if (botonActivo) {
+
+            botonActivo.classList.add("active");
+
+        }
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* ======================================
+       BOTÓN RESUMEN
+    ====================================== */
+
+    const botonResumen =
+        document.querySelector(
+            '[data-admin-section="resumen"]'
+        );
+
+
+    if (botonResumen) {
+
+        botonResumen.addEventListener(
+            "click",
+            function () {
+
+                mostrarSeccion(
+                    "resumen",
+                    botonResumen
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       BOTÓN PRODUCTOS
+    ====================================== */
+
+    const botonProductos =
+        document.querySelector(
+            '[data-admin-section="productos"]'
+        );
+
+
+    if (botonProductos) {
+
+        botonProductos.addEventListener(
+            "click",
+            function () {
+
+                mostrarSeccion(
+                    "productos",
+                    botonProductos
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       BOTÓN CONFIGURACIÓN
+    ====================================== */
+
+    const botonConfiguracion =
+        document.querySelector(
+            '[data-admin-section="configuracion"]'
+        );
+
+
+    if (botonConfiguracion) {
+
+        botonConfiguracion.addEventListener(
+            "click",
+            function () {
+
+                mostrarSeccion(
+                    "configuracion",
+                    botonConfiguracion
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       PEDIDOS
+
+       Todavía no tiene sección.
+       Lo dejaremos preparado después.
+    ====================================== */
+
+    const botonPedidos =
+        document.querySelector(
+            '[data-admin-section="pedidos"]'
+        );
+
+
+    if (botonPedidos) {
+
+        botonPedidos.addEventListener(
+            "click",
+            function () {
+
+                console.log(
+                    "La sección PEDIDOS todavía está en construcción."
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================
+       RESUMEN COMO SECCIÓN INICIAL
+    ====================================== */
+
+    mostrarSeccion(
+        "resumen",
+        botonResumen
+    );
+
+}
 if (esPanelAdmin) {
 
     document.addEventListener(
@@ -917,6 +1139,8 @@ if (esPanelAdmin) {
             cargarProductosAdmin();
         
             cargarEstadisticasAdmin();
+
+            configurarNavegacionAdmin();
 
             const botonGuardarTasa =
                 document.getElementById(

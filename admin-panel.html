@@ -54,21 +54,36 @@
 
 <nav class="admin-panel-nav">
 
-    <button class="admin-nav-button active">
-        📊 RESUMEN
-    </button>
+    <button
+    class="admin-nav-button active"
+    data-admin-section="resumen"
+>
+    📊 RESUMEN
+</button>
 
-    <button class="admin-nav-button">
-        📦 PRODUCTOS
-    </button>
 
-    <button class="admin-nav-button">
-        🧾 PEDIDOS
-    </button>
+<button
+    class="admin-nav-button"
+    data-admin-section="productos"
+>
+    📦 PRODUCTOS
+</button>
 
-    <button class="admin-nav-button">
-        ⚙️ CONFIGURACIÓN
-    </button>
+
+<button
+    class="admin-nav-button"
+    data-admin-section="pedidos"
+>
+    🧾 PEDIDOS
+</button>
+
+
+<button
+    class="admin-nav-button"
+    data-admin-section="configuracion"
+>
+    ⚙️ CONFIGURACIÓN
+</button>
 
 </nav>
 
@@ -79,7 +94,7 @@
      RESUMEN DEL PANEL
 ================================== -->
 
-<section class="admin-dashboard-summary">
+<section id="adminSectionResumen" class="admin-dashboard-summary">
 
     <div class="admin-stat-card">
 
@@ -169,7 +184,7 @@
              TASA USDT
         ================================== -->
 
-        <section class="admin-section">
+        <section id="adminSectionConfiguracion" class="admin-section">
 
             <div class="admin-section-heading">
 
@@ -235,7 +250,7 @@
              PRODUCTOS
         ================================== -->
 
-        <section class="admin-section">
+        <section id="adminSectionProductos" class="admin-section">
 
             <div class="admin-section-heading">
 
@@ -280,7 +295,7 @@
 
 
     <script src="supabase-config.js"></script>
-    <script src="admin.js"></script>
+    <script src="admin.js?=3"></script>
 
 </body>
 
