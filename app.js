@@ -5,7 +5,12 @@
 
 let pedidoActual = {
     producto: "",
+    productoId: "",
     precio: "",
+    precioUSDT: 0,
+    tasaUSDT: 0,
+    totalBs: 0,
+    juego: "",
     idJugador: "",
     nombreCliente: "",
     metodoPago: "",
@@ -86,12 +91,25 @@ function cerrarBloodStrike() {
    COMPRAR PRODUCTO
 ================================= */
 
-function comprar(producto, precio) {
+function comprar(
+    producto,
+    precio,
+    productoId,
+    precioUSDT,
+    tasaUSDT,
+    totalBs,
+    juego
+) {
 
-    /* Guardar producto */
+    /* Guardar información completa del producto */
 
     pedidoActual.producto = producto;
+    pedidoActual.productoId = productoId;
     pedidoActual.precio = precio;
+    pedidoActual.precioUSDT = Number(precioUSDT);
+    pedidoActual.tasaUSDT = Number(tasaUSDT);
+    pedidoActual.totalBs = Number(totalBs);
+    pedidoActual.juego = juego;
 
     /* Mostrar producto en el pedido */
 
@@ -118,7 +136,9 @@ function comprar(producto, precio) {
         bloodStrike.classList.remove("active");
     }
 
-    document.body.classList.remove("blood-strike-active");
+    document.body.classList.remove(
+        "blood-strike-active"
+    );
 
     /* Ocultar otras pantallas */
 
@@ -128,8 +148,13 @@ function comprar(producto, precio) {
     const receipt =
         document.getElementById("receipt");
 
-    if (payment) payment.classList.remove("active");
-    if (receipt) receipt.classList.remove("active");
+    if (payment) {
+        payment.classList.remove("active");
+    }
+
+    if (receipt) {
+        receipt.classList.remove("active");
+    }
 
     document.body.classList.remove(
         "payment-active",
@@ -142,11 +167,16 @@ function comprar(producto, precio) {
         document.getElementById("checkout");
 
     if (!checkout) {
-        console.error("No se encontró la pantalla de pedido.");
+        console.error(
+            "No se encontró la pantalla de pedido."
+        );
         return;
     }
 
-    document.body.classList.add("checkout-active");
+    document.body.classList.add(
+        "checkout-active"
+    );
+
     checkout.classList.add("active");
 
     irArriba();
@@ -188,6 +218,73 @@ function volverTienda() {
     irArriba();
 }
 
+/* =================================
+   CREAR PEDIDO EN SUPABASE
+================================= */
+
+async function crearPedidoEnSupabase() {
+    try {
+        const respuesta = await fetch(
+            `${SUPABASE_URL}/rest/v1/rpc/crear_pedido`,
+            {
+                method: "POST",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${SUPABASE_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    p_customer_name: pedidoActual.nombreCliente,
+                    p_customer_phone: "",
+                    p_game: pedidoActual.juego,
+                    p_product_id: pedidoActual.productoId,
+                    p_product_name: pedidoActual.producto,
+                    p_price_usdt: pedidoActual.precioUSDT,
+                    p_exchange_rate: pedidoActual.tasaUSDT,
+                    p_total_bs: pedidoActual.totalBs,
+                    p_game_player_id: pedidoActual.idJugador,
+                    p_payment_method: pedidoActual.metodoPago
+                })
+            }
+        );
+
+        if (!respuesta.ok) {
+            const error = await respuesta.text();
+
+            throw new Error(
+                `Error al crear pedido: ${respuesta.status} - ${error}`
+            );
+        }
+
+        const orderNumber = await respuesta.json();
+
+        if (!orderNumber) {
+            throw new Error(
+                "Supabase no devolvió el número de pedido."
+            );
+        }
+
+        pedidoActual.numeroPedido =
+            "PS-" + orderNumber;
+
+        console.log(
+            "Pedido creado correctamente:",
+            pedidoActual.numeroPedido
+        );
+
+        return {
+            order_number: orderNumber
+        };
+
+    } catch (error) {
+        console.error(
+            "No se pudo crear el pedido:",
+            error
+        );
+
+        return null;
+    }
+}
 
 /* =================================
    FORMULARIO DEL PEDIDO
@@ -203,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    formulario.addEventListener("submit", function(event) {
+    formulario.addEventListener("submit", async function(event) {
 
         event.preventDefault();
 
@@ -255,13 +352,18 @@ document.addEventListener("DOMContentLoaded", function() {
         pedidoActual.metodoPago =
             metodoPago;
 
-        /* Crear número de pedido */
+        /* Crear pedido en Supabase */
 
-        pedidoActual.numeroPedido =
-            "PS-" +
-            Date.now()
-                .toString()
-                .slice(-8);
+       const pedidoCreado =
+    await crearPedidoEnSupabase();
+
+if (!pedidoCreado) {
+    console.error(
+        "No se pudo crear el pedido."
+    );
+}
+
+console.log("Continuando hacia Pago Móvil...");
 
         /* Mostrar información en Pago Móvil */
 
@@ -717,14 +819,19 @@ async function cargarPaquetesOro() {
 
             const boton = tarjeta.querySelector("button");
 
-            boton.addEventListener("click", function () {
+          boton.addEventListener("click", function () {
 
-                comprar(
-                    producto.name,
-                    `${precioBs.toLocaleString("es-VE")} Bs`
+               comprar(
+                   producto.name,
+                    `${precioBs.toLocaleString("es-VE")} Bs`,
+                   producto.id,
+                   Number(producto.price),
+                   tasaUSDT,
+                   precioBs,
+                   "Blood Strike"
                 );
 
-            });
+        });
 
             contenedor.appendChild(tarjeta);
 
@@ -799,14 +906,19 @@ async function cargarPases() {
 
         const boton = tarjeta.querySelector("button");
 
-        boton.addEventListener("click", function () {
+       boton.addEventListener("click", function () {
 
-            comprar(
-                producto.name,
-                `${precioBs.toLocaleString("es-VE")} Bs`
-            );
+    comprar(
+        producto.name,
+        `${precioBs.toLocaleString("es-VE")} Bs`,
+        producto.id,
+        Number(producto.price),
+        tasaUSDT,
+        precioBs,
+        "Blood Strike"
+    );
 
-        });
+});
 
         contenedor.appendChild(tarjeta);
 
