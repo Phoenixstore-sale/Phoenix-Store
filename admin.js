@@ -806,7 +806,7 @@ async function cargarPedidosAdmin() {
         }
 
         const respuesta = await fetch(
-            `${SUPABASE_URL}/rest/v1/Pedidos?select=order_number,created_at,customer_name,customer_phone,product_name,total_bs,game_player_id,status&order=created_at.desc`,
+            `${SUPABASE_URL}/rest/v1/Pedidos?select=order_number,created_at,customer_name,customer_phone,game,product_name,price_usdt,total_bs,game_player_id,payment_method,payment_reference,status&order=created_at.desc`,
             {
                 method: "GET",
                 headers: {
@@ -860,14 +860,21 @@ async function cargarPedidosAdmin() {
                 <td>${fecha}</td>
                 <td>${pedido.status || "pendiente"}</td>
                 <td>
-                    <button type="button" class="admin-order-detail-button">
+                     <button 
+                           type="button"
+                           class="admin-order-detail-button"
+                     data-order-number="${pedido.order_number}">
                         VER
-                    </button>
+                     </button>
                 </td>
             `;
 
             tabla.appendChild(fila);
         });
+        fila.querySelector(".admin-order-detail-button")
+    .addEventListener("click", function () {
+        abrirDetallePedido(pedido);
+    });
 
         if (mensaje) {
             mensaje.textContent = `PEDIDOS REGISTRADOS: ${pedidos.length}`;
@@ -888,6 +895,58 @@ async function cargarPedidosAdmin() {
             mensaje.textContent = "ERROR AL CARGAR LOS PEDIDOS";
         }
     }
+}
+function abrirDetallePedido(pedido) {
+    const listaPedidos =
+        document.getElementById("adminSectionPedidos");
+
+    const detalles =
+        document.getElementById("adminOrderDetails");
+
+    if (!detalles || !listaPedidos) return;
+
+    listaPedidos.style.display = "none";
+    detalles.style.display = "block";
+
+    document.getElementById("detailOrderNumber").textContent =
+        "PS-" + pedido.order_number;
+
+    document.getElementById("detailOrderStatus").textContent =
+        (pedido.status || "pendiente").toUpperCase();
+
+    document.getElementById("detailCustomerName").textContent =
+        pedido.customer_name || "No indicado";
+
+    document.getElementById("detailCustomerPhone").textContent =
+        pedido.customer_phone || "No indicado";
+
+    document.getElementById("detailGame").textContent =
+        pedido.game || "No indicado";
+
+    document.getElementById("detailProductName").textContent =
+        pedido.product_name || "No indicado";
+
+    document.getElementById("detailOrderPrice").textContent =
+        Number(pedido.total_bs || 0).toLocaleString("es-VE") + " Bs";
+
+    document.getElementById("detailPlayerId").textContent =
+        pedido.game_player_id || "No indicado";
+
+    document.getElementById("detailPaymentMethod").textContent =
+        pedido.payment_method || "No indicado";
+
+    document.getElementById("detailPaymentReference").textContent =
+        pedido.payment_reference || "No indicada";
+
+    document.getElementById("detailOrderDate").textContent =
+        pedido.created_at
+            ? new Date(pedido.created_at).toLocaleString("es-VE")
+            : "No indicada";
+
+    document.getElementById("detailStatusSelect").value =
+        pedido.status || "pendiente";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 async function cargarEstadisticasAdmin() {
 
@@ -1246,4 +1305,19 @@ if (esPanelAdmin) {
         }
     );
 
-}
+}document.addEventListener("DOMContentLoaded", function () {
+    const botonVolver =
+        document.getElementById("backToOrdersButton");
+
+    if (botonVolver) {
+        botonVolver.addEventListener("click", function () {
+            document.getElementById("adminOrderDetails").style.display =
+                "none";
+
+            document.getElementById("adminSectionPedidos").style.display =
+                "block";
+
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
+});

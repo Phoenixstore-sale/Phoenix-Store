@@ -256,6 +256,109 @@
     </div>
 
 </section>
+<!-- FICHA DE DETALLES DEL PEDIDO -->
+<section id="adminOrderDetails" class="admin-section admin-order-details" style="display: none;">
+
+    <div class="admin-section-heading">
+        <div>
+            <span>🧾</span>
+            <div>
+                <p>GESTIÓN DE VENTAS</p>
+                <h2>DETALLES DEL PEDIDO</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-order-details-content">
+
+        <div class="admin-order-details-header">
+            <div>
+                <p>NÚMERO DE PEDIDO</p>
+                <h3 id="detailOrderNumber">PS-0000</h3>
+            </div>
+
+            <span id="detailOrderStatus" class="admin-order-status">
+                PENDIENTE
+            </span>
+        </div>
+
+        <div class="admin-order-details-grid">
+
+            <div class="admin-order-detail-card">
+                <p>CLIENTE</p>
+                <strong id="detailCustomerName">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>TELÉFONO</p>
+                <strong id="detailCustomerPhone">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>JUEGO</p>
+                <strong id="detailGame">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>PRODUCTO</p>
+                <strong id="detailProductName">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>PRECIO</p>
+                <strong id="detailOrderPrice">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>ID DEL JUGADOR</p>
+                <strong id="detailPlayerId">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>MÉTODO DE PAGO</p>
+                <strong id="detailPaymentMethod">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>REFERENCIA DE PAGO</p>
+                <strong id="detailPaymentReference">—</strong>
+            </div>
+
+            <div class="admin-order-detail-card">
+                <p>FECHA DEL PEDIDO</p>
+                <strong id="detailOrderDate">—</strong>
+            </div>
+
+        </div>
+
+        <div class="admin-order-status-editor">
+
+            <label for="detailStatusSelect">
+                CAMBIAR ESTADO DEL PEDIDO
+            </label>
+
+            <select id="detailStatusSelect">
+                <option value="pendiente">Pendiente</option>
+                <option value="pagado">Pagado</option>
+                <option value="completado">Completado</option>
+                <option value="cancelado">Cancelado</option>
+            </select>
+
+            <button type="button" id="saveOrderStatusButton">
+                GUARDAR ESTADO
+            </button>
+
+            <p id="orderStatusMessage"></p>
+
+        </div>
+
+    </div>
+
+    <button type="button" id="backToOrdersButton" class="admin-order-back-button">
+        ← VOLVER A PEDIDOS
+    </button>
+
+</section>
         <!-- =================================
              TASA USDT
         ================================== -->
