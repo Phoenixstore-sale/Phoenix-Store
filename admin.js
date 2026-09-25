@@ -818,7 +818,10 @@ async function cargarPedidosAdmin() {
 
         if (!respuesta.ok) {
             const error = await respuesta.text();
-            throw new Error(`Error al cargar pedidos: ${respuesta.status} - ${error}`);
+
+            throw new Error(
+                `Error al cargar pedidos: ${respuesta.status} - ${error}`
+            );
         }
 
         const pedidos = await respuesta.json();
@@ -842,52 +845,76 @@ async function cargarPedidosAdmin() {
         pedidos.forEach(function (pedido) {
             const fila = document.createElement("tr");
 
-            const fecha = new Date(pedido.created_at).toLocaleString("es-VE");
+            const fecha = new Date(
+                pedido.created_at
+            ).toLocaleString("es-VE");
 
             fila.innerHTML = `
                 <td>PS-${pedido.order_number}</td>
+
                 <td>
                     ${pedido.customer_name || "Sin nombre"}
                     <br>
                     <small>${pedido.customer_phone || ""}</small>
                 </td>
+
                 <td>
                     ${pedido.product_name || "Sin producto"}
                     <br>
-                    <small>ID jugador: ${pedido.game_player_id || "No indicado"}</small>
+                    <small>
+                        ID jugador: ${pedido.game_player_id || "No indicado"}
+                    </small>
                 </td>
-                <td>${Number(pedido.total_bs || 0).toLocaleString("es-VE")} Bs</td>
-                <td>${fecha}</td>
-                <td>${pedido.status || "pendiente"}</td>
+
                 <td>
-                     <button 
-                           type="button"
-                           class="admin-order-detail-button"
-                     data-order-number="${pedido.order_number}">
+                    ${Number(pedido.total_bs || 0).toLocaleString("es-VE")} Bs
+                </td>
+
+                <td>${fecha}</td>
+
+                <td>${pedido.status || "pendiente"}</td>
+
+                <td>
+                    <button
+                        type="button"
+                        class="admin-order-detail-button"
+                        data-order-number="${pedido.order_number}">
                         VER
-                     </button>
+                    </button>
                 </td>
             `;
 
+            // Agregar la fila a la tabla.
             tabla.appendChild(fila);
+
+            // Conectar el botón VER de esta fila.
+            fila.querySelector(".admin-order-detail-button")
+                .addEventListener("click", function () {
+                    abrirDetallePedido(pedido);
+                });
         });
-        fila.querySelector(".admin-order-detail-button")
-    .addEventListener("click", function () {
-        abrirDetallePedido(pedido);
-    });
 
         if (mensaje) {
-            mensaje.textContent = `PEDIDOS REGISTRADOS: ${pedidos.length}`;
+            mensaje.textContent =
+                `PEDIDOS REGISTRADOS: ${pedidos.length}`;
         }
 
-        console.log("Pedidos recibidos desde Supabase:", pedidos);
+        console.log(
+            "Pedidos recibidos desde Supabase:",
+            pedidos
+        );
 
     } catch (error) {
-        console.error("No se pudieron cargar los pedidos:", error);
+        console.error(
+            "No se pudieron cargar los pedidos:",
+            error
+        );
 
         tabla.innerHTML = `
             <tr>
-                <td colspan="7">NO SE PUDIERON CARGAR LOS PEDIDOS</td>
+                <td colspan="7">
+                    NO SE PUDIERON CARGAR LOS PEDIDOS
+                </td>
             </tr>
         `;
 
@@ -896,6 +923,8 @@ async function cargarPedidosAdmin() {
         }
     }
 }
+
+
 function abrirDetallePedido(pedido) {
     const listaPedidos =
         document.getElementById("adminSectionPedidos");
@@ -946,8 +975,12 @@ function abrirDetallePedido(pedido) {
     document.getElementById("detailStatusSelect").value =
         pedido.status || "pendiente";
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
+
 async function cargarEstadisticasAdmin() {
 
     const productosElemento =
