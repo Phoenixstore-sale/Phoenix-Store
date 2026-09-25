@@ -786,6 +786,109 @@ if (botonLogout) {
 // ==========================================
 // INICIAR PANEL
 // ==========================================
+async function cargarPedidosAdmin() {
+    const tabla = document.getElementById("adminOrdersTableBody");
+    const mensaje = document.getElementById("adminOrdersMessage");
+
+    if (!tabla) return;
+
+    try {
+        const sesion = JSON.parse(
+            localStorage.getItem("phoenix_admin_session") || "null"
+        );
+
+        if (!sesion || !sesion.access_token) {
+            throw new Error("No se encontró la sesión del administrador.");
+        }
+
+        if (mensaje) {
+            mensaje.textContent = "CARGANDO PEDIDOS...";
+        }
+
+        const respuesta = await fetch(
+            `${SUPABASE_URL}/rest/v1/Pedidos?select=order_number,created_at,customer_name,customer_phone,product_name,total_bs,game_player_id,status&order=created_at.desc`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${sesion.access_token}`
+                }
+            }
+        );
+
+        if (!respuesta.ok) {
+            const error = await respuesta.text();
+            throw new Error(`Error al cargar pedidos: ${respuesta.status} - ${error}`);
+        }
+
+        const pedidos = await respuesta.json();
+
+        tabla.innerHTML = "";
+
+        if (pedidos.length === 0) {
+            tabla.innerHTML = `
+                <tr>
+                    <td colspan="7">TODAVÍA NO HAY PEDIDOS</td>
+                </tr>
+            `;
+
+            if (mensaje) {
+                mensaje.textContent = "NO HAY PEDIDOS REGISTRADOS";
+            }
+
+            return;
+        }
+
+        pedidos.forEach(function (pedido) {
+            const fila = document.createElement("tr");
+
+            const fecha = new Date(pedido.created_at).toLocaleString("es-VE");
+
+            fila.innerHTML = `
+                <td>PS-${pedido.order_number}</td>
+                <td>
+                    ${pedido.customer_name || "Sin nombre"}
+                    <br>
+                    <small>${pedido.customer_phone || ""}</small>
+                </td>
+                <td>
+                    ${pedido.product_name || "Sin producto"}
+                    <br>
+                    <small>ID jugador: ${pedido.game_player_id || "No indicado"}</small>
+                </td>
+                <td>${Number(pedido.total_bs || 0).toLocaleString("es-VE")} Bs</td>
+                <td>${fecha}</td>
+                <td>${pedido.status || "pendiente"}</td>
+                <td>
+                    <button type="button" class="admin-order-detail-button">
+                        VER
+                    </button>
+                </td>
+            `;
+
+            tabla.appendChild(fila);
+        });
+
+        if (mensaje) {
+            mensaje.textContent = `PEDIDOS REGISTRADOS: ${pedidos.length}`;
+        }
+
+        console.log("Pedidos recibidos desde Supabase:", pedidos);
+
+    } catch (error) {
+        console.error("No se pudieron cargar los pedidos:", error);
+
+        tabla.innerHTML = `
+            <tr>
+                <td colspan="7">NO SE PUDIERON CARGAR LOS PEDIDOS</td>
+            </tr>
+        `;
+
+        if (mensaje) {
+            mensaje.textContent = "ERROR AL CARGAR LOS PEDIDOS";
+        }
+    }
+}
 async function cargarEstadisticasAdmin() {
 
     const productosElemento =
@@ -1091,12 +1194,13 @@ function configurarNavegacionAdmin() {
        Lo dejaremos preparado después.
     ====================================== */
 
-    const botonPedidos =
+   const botonPedidos =
     document.querySelector('[data-admin-section="pedidos"]');
 
 if (botonPedidos) {
     botonPedidos.addEventListener("click", function () {
         mostrarSeccion("pedidos", botonPedidos);
+        cargarPedidosAdmin();
     });
 }
 
