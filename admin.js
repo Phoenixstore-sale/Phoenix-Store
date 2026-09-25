@@ -917,23 +917,18 @@ function configurarNavegacionAdmin() {
 
 
     const secciones = {
+    resumen:
+        document.getElementById("adminSectionResumen"),
 
-        resumen:
-            document.getElementById(
-                "adminSectionResumen"
-            ),
+    productos:
+        document.getElementById("adminSectionProductos"),
 
-        productos:
-            document.getElementById(
-                "adminSectionProductos"
-            ),
+    pedidos:
+        document.getElementById("adminSectionPedidos"),
 
-        configuracion:
-            document.getElementById(
-                "adminSectionConfiguracion"
-            )
-
-    };
+    configuracion:
+        document.getElementById("adminSectionConfiguracion")
+};
 
 
     if (!botones.length) {
@@ -1097,26 +1092,13 @@ function configurarNavegacionAdmin() {
     ====================================== */
 
     const botonPedidos =
-        document.querySelector(
-            '[data-admin-section="pedidos"]'
-        );
+    document.querySelector('[data-admin-section="pedidos"]');
 
-
-    if (botonPedidos) {
-
-        botonPedidos.addEventListener(
-            "click",
-            function () {
-
-                console.log(
-                    "La sección PEDIDOS todavía está en construcción."
-                );
-
-            }
-        );
-
-    }
-
+if (botonPedidos) {
+    botonPedidos.addEventListener("click", function () {
+        mostrarSeccion("pedidos", botonPedidos);
+    });
+}
 
     /* ======================================
        RESUMEN COMO SECCIÓN INICIAL

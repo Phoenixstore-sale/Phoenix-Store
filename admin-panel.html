@@ -180,6 +180,82 @@
     </div>
 
 </section>
+
+<!-- SECCIÓN PEDIDOS -->
+<section id="adminSectionPedidos" class="admin-section" style="display: none;">
+
+    <div class="admin-section-heading">
+        <div>
+            <span>🧾</span>
+            <div>
+                <p>GESTIÓN DE VENTAS</p>
+                <h2>PEDIDOS</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="admin-orders-filters">
+
+        <div class="admin-form-group">
+            <label for="filterOrderStatus">ESTADO DEL PEDIDO</label>
+
+            <select id="filterOrderStatus">
+                <option value="todos">Todos los pedidos</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="pagado">Pagados</option>
+                <option value="completado">Completados</option>
+                <option value="cancelado">Cancelados</option>
+            </select>
+        </div>
+
+        <div class="admin-form-group">
+            <label for="searchOrder">BUSCAR PEDIDO</label>
+
+            <input
+                type="text"
+                id="searchOrder"
+                placeholder="Número, cliente o producto..."
+            >
+        </div>
+
+    </div>
+
+    <!-- Mensaje de carga -->
+    <div id="adminOrdersMessage" class="admin-orders-message">
+        LOS PEDIDOS APARECERÁN AQUÍ
+    </div>
+
+    <!-- Tabla de pedidos -->
+    <div class="admin-orders-table-wrapper">
+
+        <table class="admin-orders-table">
+
+            <thead>
+                <tr>
+                    <th>PEDIDO</th>
+                    <th>CLIENTE</th>
+                    <th>PRODUCTO</th>
+                    <th>TOTAL</th>
+                    <th>FECHA</th>
+                    <th>ESTADO</th>
+                    <th>DETALLES</th>
+                </tr>
+            </thead>
+
+            <tbody id="adminOrdersTableBody">
+                <tr>
+                    <td colspan="7">
+                        CARGANDO PEDIDOS...
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
         <!-- =================================
              TASA USDT
         ================================== -->
