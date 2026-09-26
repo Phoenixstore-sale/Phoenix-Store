@@ -924,8 +924,10 @@ async function cargarPedidosAdmin() {
     }
 }
 
+let pedidoSeleccionadoAdmin = null;
 
 function abrirDetallePedido(pedido) {
+   pedidoSeleccionadoAdmin = pedido;
     const listaPedidos =
         document.getElementById("adminSectionPedidos");
 
@@ -1354,3 +1356,83 @@ if (esPanelAdmin) {
         });
     }
 });
+// ==========================================
+// GUARDAR ESTADO DEL PEDIDO
+// ==========================================
+
+const botonGuardarEstado =
+    document.getElementById("saveOrderStatusButton");
+
+if (botonGuardarEstado) {
+
+    botonGuardarEstado.addEventListener("click", async function () {
+
+        const mensaje =
+            document.getElementById("orderStatusMessage");
+
+        const selector =
+            document.getElementById("detailStatusSelect");
+
+        if (!pedidoSeleccionadoAdmin) {
+            mensaje.textContent = "No hay ningún pedido seleccionado.";
+            return;
+        }
+
+        const nuevoEstado = selector.value;
+        const token = obtenerTokenAdmin();
+
+        if (!token) {
+            mensaje.textContent = "La sesión ha caducado. Inicia sesión nuevamente.";
+            return;
+        }
+
+        botonGuardarEstado.disabled = true;
+        mensaje.textContent = "GUARDANDO CAMBIOS...";
+
+        try {
+
+            const respuesta = await fetch(
+                `${SUPABASE_URL}/rest/v1/Pedidos?order_number=eq.${pedidoSeleccionadoAdmin.order_number}`,
+                {
+                    method: "PATCH",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "apikey": SUPABASE_KEY,
+                        "Authorization": `Bearer ${token}`,
+                        "Prefer": "return=minimal"
+                    },
+
+                    body: JSON.stringify({
+                        status: nuevoEstado
+                    })
+                }
+            );
+
+            if (!respuesta.ok) {
+                const error = await respuesta.text();
+                throw new Error(error || "No se pudo actualizar el pedido.");
+            }
+
+            pedidoSeleccionadoAdmin.status = nuevoEstado;
+
+            document.getElementById("detailOrderStatus").textContent =
+                nuevoEstado.toUpperCase();
+
+            mensaje.textContent = "ESTADO ACTUALIZADO CORRECTAMENTE.";
+
+            await cargarPedidosAdmin();
+
+        } catch (error) {
+
+            console.error("Error al guardar el estado:", error);
+
+            mensaje.textContent =
+                "ERROR AL GUARDAR: " + error.message;
+
+        } finally {
+
+            botonGuardarEstado.disabled = false;
+        }
+    });
+}
