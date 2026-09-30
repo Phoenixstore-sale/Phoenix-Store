@@ -4073,3 +4073,76 @@ body.blood-strike-active > footer {
     }
 
 }
+/* =========================================================
+   ESTADOS DE PEDIDOS - TABLA ADMIN
+========================================================= */
+
+.admin-order-status-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 95px;
+
+    padding: 7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.8px;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+
+/* PENDIENTE */
+
+.admin-order-status-badge.pending {
+    background: rgba(242, 196, 0, 0.12);
+
+    border: 1px solid #806900;
+
+    color: #f2c400;
+
+    box-shadow:
+        0 0 12px rgba(242, 196, 0, 0.08);
+}
+
+
+/* PAGADO */
+
+.admin-order-status-badge.paid {
+    background: rgba(70, 140, 255, 0.12);
+
+    border: 1px solid #315f9e;
+
+    color: #70aaff;
+}
+
+
+/* COMPLETADO */
+
+.admin-order-status-badge.completed {
+    background: rgba(55, 190, 105, 0.12);
+
+    border: 1px solid #287c49;
+
+    color: #59d98a;
+}
+
+
+/* CANCELADO */
+
+.admin-order-status-badge.cancelled {
+    background: rgba(220, 65, 65, 0.12);
+
+    border: 1px solid #8f3030;
+
+    color: #ff7373;
+}

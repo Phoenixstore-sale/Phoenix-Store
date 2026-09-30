@@ -787,141 +787,328 @@ if (botonLogout) {
 // INICIAR PANEL
 // ==========================================
 async function cargarPedidosAdmin() {
-    const tabla = document.getElementById("adminOrdersTableBody");
-    const mensaje = document.getElementById("adminOrdersMessage");
+
+    const tabla =
+        document.getElementById("adminOrdersTableBody");
+
+    const mensaje =
+        document.getElementById("adminOrdersMessage");
 
     if (!tabla) return;
 
+
     try {
-        const sesion = JSON.parse(
-            localStorage.getItem("phoenix_admin_session") || "null"
-        );
+
+        const sesion =
+            JSON.parse(
+                localStorage.getItem(
+                    "phoenix_admin_session"
+                ) || "null"
+            );
+
 
         if (!sesion || !sesion.access_token) {
-            throw new Error("No se encontró la sesión del administrador.");
+
+            throw new Error(
+                "No se encontró la sesión del administrador."
+            );
+
         }
+
 
         if (mensaje) {
-            mensaje.textContent = "CARGANDO PEDIDOS...";
+
+            mensaje.textContent =
+                "CARGANDO PEDIDOS...";
+
         }
 
-        const respuesta = await fetch(
-            `${SUPABASE_URL}/rest/v1/Pedidos?select=order_number,created_at,customer_name,customer_phone,game,product_name,price_usdt,total_bs,game_player_id,payment_method,payment_reference,status&order=created_at.desc`,
-            {
-                method: "GET",
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": `Bearer ${sesion.access_token}`
+
+        const respuesta =
+            await fetch(
+
+                `${SUPABASE_URL}/rest/v1/Pedidos?select=order_number,created_at,customer_name,customer_phone,game,product_name,price_usdt,total_bs,game_player_id,payment_method,payment_reference,status&order=created_at.desc`,
+
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${sesion.access_token}`
+
+                    }
+
                 }
-            }
-        );
+
+            );
+
 
         if (!respuesta.ok) {
-            const error = await respuesta.text();
+
+            const error =
+                await respuesta.text();
 
             throw new Error(
                 `Error al cargar pedidos: ${respuesta.status} - ${error}`
             );
+
         }
 
-        const pedidos = await respuesta.json();
+
+        const pedidos =
+            await respuesta.json();
+
 
         tabla.innerHTML = "";
 
+
         if (pedidos.length === 0) {
+
             tabla.innerHTML = `
+
                 <tr>
-                    <td colspan="7">TODAVÍA NO HAY PEDIDOS</td>
+
+                    <td colspan="7">
+                        TODAVÍA NO HAY PEDIDOS
+                    </td>
+
                 </tr>
+
             `;
 
+
             if (mensaje) {
-                mensaje.textContent = "NO HAY PEDIDOS REGISTRADOS";
+
+                mensaje.textContent =
+                    "NO HAY PEDIDOS REGISTRADOS";
+
             }
 
             return;
+
         }
 
-        pedidos.forEach(function (pedido) {
-            const fila = document.createElement("tr");
 
-            const fecha = new Date(
-                pedido.created_at
-            ).toLocaleString("es-VE");
+        pedidos.forEach(function (pedido) {
+
+            const fila =
+                document.createElement("tr");
+
+
+            const fecha =
+                new Date(
+                    pedido.created_at
+                ).toLocaleString("es-VE");
+
+
+            // ==========================================
+            // ESTADO DEL PEDIDO
+            // ==========================================
+
+            const estado =
+                (pedido.status || "pendiente")
+                    .toLowerCase();
+
+
+            let textoEstado =
+                "PENDIENTE";
+
+
+            let claseEstado =
+                "pending";
+
+
+            if (estado === "pagado") {
+
+                textoEstado =
+                    "PAGADO";
+
+                claseEstado =
+                    "paid";
+
+            }
+
+            else if (estado === "completado") {
+
+                textoEstado =
+                    "COMPLETADO";
+
+                claseEstado =
+                    "completed";
+
+            }
+
+            else if (estado === "cancelado") {
+
+                textoEstado =
+                    "CANCELADO";
+
+                claseEstado =
+                    "cancelled";
+
+            }
+
 
             fila.innerHTML = `
-                <td>PS-${pedido.order_number}</td>
 
                 <td>
-                    ${pedido.customer_name || "Sin nombre"}
-                    <br>
-                    <small>${pedido.customer_phone || ""}</small>
+                    <strong>
+                        PS-${pedido.order_number}
+                    </strong>
                 </td>
 
+
                 <td>
-                    ${pedido.product_name || "Sin producto"}
+
+                    <strong>
+                        ${pedido.customer_name || "Sin nombre"}
+                    </strong>
+
                     <br>
+
                     <small>
-                        ID jugador: ${pedido.game_player_id || "No indicado"}
+                        ${pedido.customer_phone || ""}
                     </small>
+
                 </td>
 
+
                 <td>
-                    ${Number(pedido.total_bs || 0).toLocaleString("es-VE")} Bs
+
+                    ${pedido.product_name || "Sin producto"}
+
+                    <br>
+
+                    <small>
+                        ID jugador:
+                        ${pedido.game_player_id || "No indicado"}
+                    </small>
+
                 </td>
 
-                <td>${fecha}</td>
-
-                <td>${pedido.status || "pendiente"}</td>
 
                 <td>
+
+                    <strong>
+                        ${Number(
+                            pedido.total_bs || 0
+                        ).toLocaleString("es-VE")} Bs
+                    </strong>
+
+                </td>
+
+
+                <td>
+                    ${fecha}
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="admin-order-status-badge ${claseEstado}"
+                    >
+                        ${textoEstado}
+                    </span>
+
+                </td>
+
+
+                <td>
+
                     <button
                         type="button"
                         class="admin-order-detail-button"
-                        data-order-number="${pedido.order_number}">
+                        data-order-number="${pedido.order_number}"
+                    >
                         VER
                     </button>
+
                 </td>
+
             `;
 
-            // Agregar la fila a la tabla.
+
+            // ==========================================
+            // AGREGAR FILA
+            // ==========================================
+
             tabla.appendChild(fila);
 
-            // Conectar el botón VER de esta fila.
-            fila.querySelector(".admin-order-detail-button")
-                .addEventListener("click", function () {
-                    abrirDetallePedido(pedido);
-                });
+
+            // ==========================================
+            // BOTÓN VER
+            // ==========================================
+
+            fila
+                .querySelector(
+                    ".admin-order-detail-button"
+                )
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        abrirDetallePedido(
+                            pedido
+                        );
+
+                    }
+                );
+
         });
 
+
         if (mensaje) {
+
             mensaje.textContent =
                 `PEDIDOS REGISTRADOS: ${pedidos.length}`;
+
         }
+
 
         console.log(
             "Pedidos recibidos desde Supabase:",
             pedidos
         );
 
-    } catch (error) {
+
+    }
+
+    catch (error) {
+
         console.error(
             "No se pudieron cargar los pedidos:",
             error
         );
 
+
         tabla.innerHTML = `
+
             <tr>
+
                 <td colspan="7">
                     NO SE PUDIERON CARGAR LOS PEDIDOS
                 </td>
+
             </tr>
+
         `;
 
+
         if (mensaje) {
-            mensaje.textContent = "ERROR AL CARGAR LOS PEDIDOS";
+
+            mensaje.textContent =
+                "ERROR AL CARGAR LOS PEDIDOS";
+
         }
+
     }
+
 }
 
 let pedidoSeleccionadoAdmin = null;
