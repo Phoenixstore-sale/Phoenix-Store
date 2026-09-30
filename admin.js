@@ -784,8 +784,16 @@ if (botonLogout) {
 
 
 // ==========================================
-// INICIAR PANEL
+// PEDIDOS ADMINISTRACIÓN
 // ==========================================
+
+let pedidosAdminActuales = [];
+
+
+// ==========================================
+// CARGAR PEDIDOS
+// ==========================================
+
 async function cargarPedidosAdmin() {
 
     const tabla =
@@ -864,6 +872,10 @@ async function cargarPedidosAdmin() {
             await respuesta.json();
 
 
+        // Guardar copia para filtros y búsqueda
+        pedidosAdminActuales = pedidos;
+
+
         tabla.innerHTML = "";
 
 
@@ -894,181 +906,9 @@ async function cargarPedidosAdmin() {
         }
 
 
-        pedidos.forEach(function (pedido) {
-
-            const fila =
-                document.createElement("tr");
-
-
-            const fecha =
-                new Date(
-                    pedido.created_at
-                ).toLocaleString("es-VE");
-
-
-            // ==========================================
-            // ESTADO DEL PEDIDO
-            // ==========================================
-
-            const estado =
-                (pedido.status || "pendiente")
-                    .toLowerCase();
-
-
-            let textoEstado =
-                "PENDIENTE";
-
-
-            let claseEstado =
-                "pending";
-
-
-            if (estado === "pagado") {
-
-                textoEstado =
-                    "PAGADO";
-
-                claseEstado =
-                    "paid";
-
-            }
-
-            else if (estado === "completado") {
-
-                textoEstado =
-                    "COMPLETADO";
-
-                claseEstado =
-                    "completed";
-
-            }
-
-            else if (estado === "cancelado") {
-
-                textoEstado =
-                    "CANCELADO";
-
-                claseEstado =
-                    "cancelled";
-
-            }
-
-
-            fila.innerHTML = `
-
-                <td>
-                    <strong>
-                        PS-${pedido.order_number}
-                    </strong>
-                </td>
-
-
-                <td>
-
-                    <strong>
-                        ${pedido.customer_name || "Sin nombre"}
-                    </strong>
-
-                    <br>
-
-                    <small>
-                        ${pedido.customer_phone || ""}
-                    </small>
-
-                </td>
-
-
-                <td>
-
-                    ${pedido.product_name || "Sin producto"}
-
-                    <br>
-
-                    <small>
-                        ID jugador:
-                        ${pedido.game_player_id || "No indicado"}
-                    </small>
-
-                </td>
-
-
-                <td>
-
-                    <strong>
-                        ${Number(
-                            pedido.total_bs || 0
-                        ).toLocaleString("es-VE")} Bs
-                    </strong>
-
-                </td>
-
-
-                <td>
-                    ${fecha}
-                </td>
-
-
-                <td>
-
-                    <span
-                        class="admin-order-status-badge ${claseEstado}"
-                    >
-                        ${textoEstado}
-                    </span>
-
-                </td>
-
-
-                <td>
-
-                    <button
-                        type="button"
-                        class="admin-order-detail-button"
-                        data-order-number="${pedido.order_number}"
-                    >
-                        VER
-                    </button>
-
-                </td>
-
-            `;
-
-
-            // ==========================================
-            // AGREGAR FILA
-            // ==========================================
-
-            tabla.appendChild(fila);
-
-
-            // ==========================================
-            // BOTÓN VER
-            // ==========================================
-
-            fila
-                .querySelector(
-                    ".admin-order-detail-button"
-                )
-                .addEventListener(
-                    "click",
-                    function () {
-
-                        abrirDetallePedido(
-                            pedido
-                        );
-
-                    }
-                );
-
-        });
-
-
-        if (mensaje) {
-
-            mensaje.textContent =
-                `PEDIDOS REGISTRADOS: ${pedidos.length}`;
-
-        }
+        mostrarPedidosAdmin(
+            pedidosAdminActuales
+        );
 
 
         console.log(
@@ -1111,6 +951,414 @@ async function cargarPedidosAdmin() {
 
 }
 
+
+// ==========================================
+// MOSTRAR PEDIDOS EN LA TABLA
+// ==========================================
+
+function mostrarPedidosAdmin(pedidos) {
+
+    const tabla =
+        document.getElementById(
+            "adminOrdersTableBody"
+        );
+
+    const mensaje =
+        document.getElementById(
+            "adminOrdersMessage"
+        );
+
+
+    if (!tabla) return;
+
+
+    tabla.innerHTML = "";
+
+
+    if (pedidos.length === 0) {
+
+        tabla.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+                    NO SE ENCONTRARON PEDIDOS
+                </td>
+
+            </tr>
+
+        `;
+
+
+        if (mensaje) {
+
+            mensaje.textContent =
+                "NO HAY PEDIDOS QUE COINCIDAN CON LA BÚSQUEDA";
+
+        }
+
+        return;
+
+    }
+
+
+    // ==========================================
+    // CREAR FILAS
+    // ==========================================
+
+    pedidos.forEach(function (pedido) {
+
+        const fila =
+            document.createElement("tr");
+
+
+        const fecha =
+            new Date(
+                pedido.created_at
+            ).toLocaleString("es-VE");
+
+
+        // ==========================================
+        // ESTADO
+        // ==========================================
+
+        const estado =
+            (pedido.status || "pendiente")
+                .toLowerCase();
+
+
+        let textoEstado =
+            "PENDIENTE";
+
+
+        let claseEstado =
+            "pending";
+
+
+        if (estado === "pagado") {
+
+            textoEstado =
+                "PAGADO";
+
+            claseEstado =
+                "paid";
+
+        }
+
+        else if (estado === "completado") {
+
+            textoEstado =
+                "COMPLETADO";
+
+            claseEstado =
+                "completed";
+
+        }
+
+        else if (estado === "cancelado") {
+
+            textoEstado =
+                "CANCELADO";
+
+            claseEstado =
+                "cancelled";
+
+        }
+
+
+        // ==========================================
+        // FILA
+        // ==========================================
+
+        fila.innerHTML = `
+
+            <td>
+
+                <strong>
+                    PS-${pedido.order_number}
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${pedido.customer_name || "Sin nombre"}
+                </strong>
+
+                <br>
+
+                <small>
+                    ${pedido.customer_phone || ""}
+                </small>
+
+            </td>
+
+
+            <td>
+
+                ${pedido.product_name || "Sin producto"}
+
+                <br>
+
+                <small>
+                    ID jugador:
+                    ${pedido.game_player_id || "No indicado"}
+                </small>
+
+            </td>
+
+
+            <td>
+
+                <strong>
+                    ${Number(
+                        pedido.total_bs || 0
+                    ).toLocaleString("es-VE")} Bs
+                </strong>
+
+            </td>
+
+
+            <td>
+                ${fecha}
+            </td>
+
+
+            <td>
+
+                <span
+                    class="admin-order-status-badge ${claseEstado}"
+                >
+                    ${textoEstado}
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <button
+                    type="button"
+                    class="admin-order-detail-button"
+                    data-order-number="${pedido.order_number}"
+                >
+                    VER
+                </button>
+
+            </td>
+
+        `;
+
+
+        tabla.appendChild(
+            fila
+        );
+
+
+        // ==========================================
+        // BOTÓN VER
+        // ==========================================
+
+        const botonVer =
+            fila.querySelector(
+                ".admin-order-detail-button"
+            );
+
+
+        if (botonVer) {
+
+            botonVer.addEventListener(
+                "click",
+                function () {
+
+                    abrirDetallePedido(
+                        pedido
+                    );
+
+                }
+            );
+
+        }
+
+    });
+
+
+    if (mensaje) {
+
+        mensaje.textContent =
+            `PEDIDOS MOSTRADOS: ${pedidos.length}`;
+
+    }
+
+}
+
+
+// ==========================================
+// FILTRAR Y BUSCAR PEDIDOS
+// ==========================================
+
+function filtrarPedidosAdmin() {
+
+    const filtroEstado =
+        document.getElementById(
+            "filterOrderStatus"
+        );
+
+
+    const buscador =
+        document.getElementById(
+            "searchOrder"
+        );
+
+
+    if (!filtroEstado || !buscador) return;
+
+
+    const estadoSeleccionado =
+        filtroEstado.value.toLowerCase();
+
+
+    const textoBusqueda =
+        buscador.value
+            .trim()
+            .toLowerCase();
+
+
+    const pedidosFiltrados =
+        pedidosAdminActuales.filter(
+            function (pedido) {
+
+                const estado =
+                    (
+                        pedido.status ||
+                        "pendiente"
+                    ).toLowerCase();
+
+
+                const textoPedido =
+                    String(
+                        pedido.order_number || ""
+                    ).toLowerCase();
+
+
+                const cliente =
+                    (
+                        pedido.customer_name ||
+                        ""
+                    ).toLowerCase();
+
+
+                const telefono =
+                    (
+                        pedido.customer_phone ||
+                        ""
+                    ).toLowerCase();
+
+
+                const producto =
+                    (
+                        pedido.product_name ||
+                        ""
+                    ).toLowerCase();
+
+
+                const jugador =
+                    (
+                        pedido.game_player_id ||
+                        ""
+                    ).toLowerCase();
+
+
+                const coincideEstado =
+                    estadoSeleccionado ===
+                    "todos" ||
+                    estado ===
+                    estadoSeleccionado;
+
+
+                const coincideBusqueda =
+                    textoBusqueda === "" ||
+
+                    textoPedido.includes(
+                        textoBusqueda
+                    ) ||
+
+                    cliente.includes(
+                        textoBusqueda
+                    ) ||
+
+                    telefono.includes(
+                        textoBusqueda
+                    ) ||
+
+                    producto.includes(
+                        textoBusqueda
+                    ) ||
+
+                    jugador.includes(
+                        textoBusqueda
+                    );
+
+
+                return (
+                    coincideEstado &&
+                    coincideBusqueda
+                );
+
+            }
+        );
+
+
+    mostrarPedidosAdmin(
+        pedidosFiltrados
+    );
+
+}
+
+
+// ==========================================
+// ACTIVAR FILTROS Y BUSCADOR
+// ==========================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const filtroEstado =
+            document.getElementById(
+                "filterOrderStatus"
+            );
+
+
+        const buscador =
+            document.getElementById(
+                "searchOrder"
+            );
+
+
+        if (filtroEstado) {
+
+            filtroEstado.addEventListener(
+                "change",
+                filtrarPedidosAdmin
+            );
+
+        }
+
+
+        if (buscador) {
+
+            buscador.addEventListener(
+                "input",
+                filtrarPedidosAdmin
+            );
+
+        }
+
+    }
+);
 let pedidoSeleccionadoAdmin = null;
 
 function abrirDetallePedido(pedido) {
