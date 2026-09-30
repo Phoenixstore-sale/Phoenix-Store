@@ -835,7 +835,7 @@ async function cargarPedidosAdmin() {
         const respuesta =
             await fetch(
 
-                `${SUPABASE_URL}/rest/v1/Pedidos?select=order_number,created_at,customer_name,customer_phone,game,product_name,price_usdt,total_bs,game_player_id,payment_method,payment_reference,status&order=created_at.desc`,
+                `${SUPABASE_URL}/rest/v1/Pedidos?select=order_number,created_at,customer_name,customer_phone,game,product_name,price_usdt,total_bs,game_player_id,payment_method,payment_reference,receipt_url,status&order=created_at.desc`,
 
                 {
 
