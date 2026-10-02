@@ -293,12 +293,12 @@ async function crearPedidoEnSupabase() {
 document.addEventListener("DOMContentLoaded", function() {
 
     const formulario =
-        document.getElementById("checkout-form");
+    document.getElementById("checkout-form");
 
-    if (!formulario) {
-        console.error("No se encontró checkout-form.");
-        return;
-    }
+if (!formulario) {
+    console.error("No se encontró checkout-form.");
+    return;
+}
 
     formulario.addEventListener("submit", async function(event) {
 

@@ -569,10 +569,50 @@
                             YA REALICÉ EL PAGO
                         </button>
 
-                        <button type="button" class="payment-back" onclick="volverPedido()">
-                            ← VOLVER AL PEDIDO
-                        </button>
+                       <!-- ==========================================
+     COMPROBANTE DE PAGO
+========================================== -->
 
+<div class="payment-receipt-upload">
+
+    <h3>
+        COMPROBANTE DE PAGO
+    </h3>
+
+    <p>
+        Después de realizar el Pago Móvil,
+        selecciona una captura de tu comprobante.
+    </p>
+
+    <label
+        for="payment-receipt-file"
+        class="receipt-upload-button"
+    >
+        📸 SELECCIONAR COMPROBANTE
+    </label>
+
+    <input
+        type="file"
+        id="payment-receipt-file"
+        accept="image/jpeg,image/png,image/webp"
+    >
+
+    <p
+        id="payment-receipt-name"
+        class="payment-receipt-name"
+    >
+        Ningún comprobante seleccionado
+    </p>
+
+</div>
+
+<button
+    type="button"
+    class="payment-button"
+    onclick="pagoRealizado()"
+>
+    CONTINUAR
+</button>
                     </div>
                 </div>
             </div>
