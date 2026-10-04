@@ -863,27 +863,15 @@ async function pagoRealizado() {
         irArriba();
 
 
-    } catch (error) {
+    } catch(error) {
+    console.error("No se pudo subir el comprobante:", error);
 
-        console.error(
-            "No se pudo subir el comprobante:",
-            error
-        );
-
-
-        if (mensajeArchivo) {
-
-            mensajeArchivo.textContent =
-                "⚠ No se pudo subir el comprobante. Intenta nuevamente.";
-
-            mensajeArchivo.classList.remove(
-                "selected"
-            );
-
-        }
-
-
-    } finally {
+    if(mensajeArchivo) {
+        mensajeArchivo.textContent =
+            "⚠ ERROR: " + (error.message || error);
+        mensajeArchivo.classList.remove("selected");
+    }
+} finally {
 
         if (botonContinuar) {
 
