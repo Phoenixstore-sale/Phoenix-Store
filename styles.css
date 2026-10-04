@@ -4145,4 +4145,136 @@ body.blood-strike-active > footer {
     border: 1px solid #8f3030;
 
     color: #ff7373;
+}/* =========================================================
+   PHOENIX STORE
+   COMPROBANTE DE PAGO
+========================================================= */
+
+.payment-receipt-upload {
+    margin-top: 24px;
+    padding: 22px;
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0b0b0b
+        );
+    border: 1px solid #3d3500;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(242, 196, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-receipt-upload::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        #8f7600,
+        #f2c400,
+        #ffe36a,
+        #f2c400,
+        #8f7600
+    );
+}
+
+.payment-receipt-upload h3 {
+    margin: 0 0 8px;
+    color: #f2c400;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.payment-receipt-upload > p {
+    margin: 0 auto 18px;
+    max-width: 500px;
+    color: #a8a8a8;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+#payment-receipt-file {
+    display: none;
+}
+
+.receipt-upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 24px;
+    background:
+        linear-gradient(
+            135deg,
+            #f2c400,
+            #c99f00
+        );
+    border: 1px solid #ffe36a;
+    border-radius: 9px;
+    color: #080808;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow:
+        0 5px 18px rgba(242, 196, 0, 0.15);
+    transition:
+        transform 0.2s ease,
+        filter 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.receipt-upload-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow:
+        0 8px 25px rgba(242, 196, 0, 0.25);
+}
+
+.receipt-upload-button:active {
+    transform: translateY(0);
+}
+
+.payment-receipt-name {
+    min-height: 18px;
+    margin: 14px 0 0 !important;
+    color: #777777 !important;
+    font-size: 11px !important;
+    font-weight: 700;
+}
+
+.payment-receipt-name.selected {
+    color: #f2c400 !important;
+}
+
+.payment-receipt-preview {
+    display: none;
+    width: 100%;
+    max-width: 360px;
+    max-height: 280px;
+    margin: 18px auto 0;
+    object-fit: contain;
+    border: 1px solid #4a4000;
+    border-radius: 10px;
+    background: #050505;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.45);
+}
+
+.payment-receipt-preview.visible {
+    display: block;
+}#payment .payment-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }

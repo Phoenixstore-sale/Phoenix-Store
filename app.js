@@ -463,11 +463,14 @@ function volverPedido() {
 
 /* =================================
    PAGO REALIZADO
+   SUBIR COMPROBANTE
 ================================= */
 
-function pagoRealizado() {
+async function pagoRealizado() {
 
-    /* Verificar que exista un pedido */
+    /* =================================
+       VERIFICAR QUE EXISTA UN PEDIDO
+    ================================= */
 
     if (
         !pedidoActual.numeroPedido ||
@@ -480,100 +483,421 @@ function pagoRealizado() {
         return;
     }
 
-    /* Número de pedido */
 
-    const receiptNumber =
-        document.getElementById("receipt-number");
+    /* =================================
+       OBTENER COMPROBANTE
+    ================================= */
 
-    if (receiptNumber) {
-        receiptNumber.textContent =
-            pedidoActual.numeroPedido;
-    }
-
-    /* Producto */
-
-    const receiptProducto =
-        document.getElementById("receipt-producto");
-
-    if (receiptProducto) {
-        receiptProducto.textContent =
-            pedidoActual.producto;
-    }
-
-    /* Precio */
-
-    const receiptPrecio =
-        document.getElementById("receipt-precio");
-
-    if (receiptPrecio) {
-        receiptPrecio.textContent =
-            pedidoActual.precio;
-    }
-
-    /* ID */
-
-    const receiptId =
-        document.getElementById("receipt-id");
-
-    if (receiptId) {
-        receiptId.textContent =
-            pedidoActual.idJugador;
-    }
-
-    /* Cliente */
-
-    const receiptCliente =
-        document.getElementById("receipt-cliente");
-
-    if (receiptCliente) {
-        receiptCliente.textContent =
-            pedidoActual.nombreCliente;
-    }
-
-    /* Método de pago */
-
-    const receiptPago =
-        document.getElementById("receipt-pago");
-
-    if (receiptPago) {
-        receiptPago.textContent =
-            pedidoActual.metodoPago;
-    }
-
-    /* Ocultar Pago Móvil */
-
-    const payment =
-        document.getElementById("payment");
-
-    if (payment) {
-        payment.classList.remove("active");
-    }
-
-    document.body.classList.remove(
-        "payment-active"
-    );
-
-    /* Mostrar comprobante */
-
-    const receipt =
-        document.getElementById("receipt");
-
-    if (!receipt) {
-        console.error(
-            "No se encontró la pantalla de comprobante."
+    const campoComprobante =
+        document.getElementById(
+            "payment-receipt-file"
         );
+
+
+    if (
+        !campoComprobante ||
+        !campoComprobante.files ||
+        !campoComprobante.files.length
+    ) {
+
+        const mensaje =
+            document.getElementById(
+                "payment-receipt-name"
+            );
+
+        if (mensaje) {
+
+            mensaje.textContent =
+                "⚠ Selecciona tu comprobante de pago antes de continuar.";
+
+            mensaje.classList.remove(
+                "selected"
+            );
+
+        }
+
         return;
     }
 
-    document.body.classList.add(
-        "receipt-active"
-    );
 
-    receipt.classList.add("active");
+    const archivo =
+        campoComprobante.files[0];
 
-    irArriba();
+
+    /* =================================
+       VERIFICAR TIPO DE ARCHIVO
+    ================================= */
+
+    if (
+        !archivo.type.startsWith("image/")
+    ) {
+
+        const mensaje =
+            document.getElementById(
+                "payment-receipt-name"
+            );
+
+        if (mensaje) {
+
+            mensaje.textContent =
+                "⚠ El comprobante debe ser una imagen.";
+
+            mensaje.classList.remove(
+                "selected"
+            );
+
+        }
+
+        return;
+    }
+
+
+    /* =================================
+       VERIFICAR TAMAÑO
+       Máximo: 5 MB
+    ================================= */
+
+    const maximo =
+        5 * 1024 * 1024;
+
+
+    if (archivo.size > maximo) {
+
+        const mensaje =
+            document.getElementById(
+                "payment-receipt-name"
+            );
+
+        if (mensaje) {
+
+            mensaje.textContent =
+                "⚠ La imagen no puede superar los 5 MB.";
+
+            mensaje.classList.remove(
+                "selected"
+            );
+
+        }
+
+        return;
+    }
+
+
+    /* =================================
+       ELEMENTOS DE LA INTERFAZ
+    ================================= */
+
+    const botonContinuar =
+        document.querySelector(
+            "#payment .payment-button"
+        );
+
+    const mensajeArchivo =
+        document.getElementById(
+            "payment-receipt-name"
+        );
+
+
+    if (botonContinuar) {
+
+        botonContinuar.disabled = true;
+
+        botonContinuar.textContent =
+            "SUBIENDO COMPROBANTE...";
+
+    }
+
+
+    if (mensajeArchivo) {
+
+        mensajeArchivo.textContent =
+            "⏳ Subiendo comprobante...";
+
+        mensajeArchivo.classList.add(
+            "selected"
+        );
+
+    }
+
+
+    /* =================================
+       CREAR NOMBRE ÚNICO
+    ================================= */
+
+    const extension =
+        archivo.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    const nombreArchivo =
+        "PS-" +
+        pedidoActual.numeroPedido.replace(
+            "PS-",
+            ""
+        ) +
+        "-" +
+        Date.now() +
+        "." +
+        extension;
+
+
+    const rutaArchivo =
+        nombreArchivo;
+
+
+    try {
+
+        /* =================================
+           SUBIR A SUPABASE STORAGE
+        ================================= */
+
+        const respuesta =
+            await fetch(
+                `${SUPABASE_URL}/storage/v1/object/comprobantes/${rutaArchivo}`,
+                {
+                    method: "POST",
+
+                    headers: {
+
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            `Bearer ${SUPABASE_KEY}`,
+
+                        "Content-Type":
+                            archivo.type,
+
+                        "x-upsert":
+                            "false"
+
+                    },
+
+                    body: archivo
+                }
+            );
+
+
+        if (!respuesta.ok) {
+
+            const error =
+                await respuesta.text();
+
+            throw new Error(
+                `Error al subir comprobante: ${respuesta.status} - ${error}`
+            );
+
+        }
+
+
+        /* =================================
+           GUARDAR RUTA EN EL PEDIDO ACTUAL
+        ================================= */
+
+        pedidoActual.comprobante =
+            rutaArchivo;
+
+
+        console.log(
+            "Comprobante subido correctamente:",
+            rutaArchivo
+        );
+
+
+        /* =================================
+           NÚMERO DE PEDIDO
+        ================================= */
+
+        const receiptNumber =
+            document.getElementById(
+                "receipt-number"
+            );
+
+        if (receiptNumber) {
+
+            receiptNumber.textContent =
+                pedidoActual.numeroPedido;
+
+        }
+
+
+        /* =================================
+           PRODUCTO
+        ================================= */
+
+        const receiptProducto =
+            document.getElementById(
+                "receipt-producto"
+            );
+
+        if (receiptProducto) {
+
+            receiptProducto.textContent =
+                pedidoActual.producto;
+
+        }
+
+
+        /* =================================
+           PRECIO
+        ================================= */
+
+        const receiptPrecio =
+            document.getElementById(
+                "receipt-precio"
+            );
+
+        if (receiptPrecio) {
+
+            receiptPrecio.textContent =
+                pedidoActual.precio;
+
+        }
+
+
+        /* =================================
+           ID DEL JUGADOR
+        ================================= */
+
+        const receiptId =
+            document.getElementById(
+                "receipt-id"
+            );
+
+        if (receiptId) {
+
+            receiptId.textContent =
+                pedidoActual.idJugador;
+
+        }
+
+
+        /* =================================
+           CLIENTE
+        ================================= */
+
+        const receiptCliente =
+            document.getElementById(
+                "receipt-cliente"
+            );
+
+        if (receiptCliente) {
+
+            receiptCliente.textContent =
+                pedidoActual.nombreCliente;
+
+        }
+
+
+        /* =================================
+           MÉTODO DE PAGO
+        ================================= */
+
+        const receiptPago =
+            document.getElementById(
+                "receipt-pago"
+            );
+
+        if (receiptPago) {
+
+            receiptPago.textContent =
+                pedidoActual.metodoPago;
+
+        }
+
+
+        /* =================================
+           OCULTAR PAGO MÓVIL
+        ================================= */
+
+        const payment =
+            document.getElementById(
+                "payment"
+            );
+
+        if (payment) {
+
+            payment.classList.remove(
+                "active"
+            );
+
+        }
+
+        document.body.classList.remove(
+            "payment-active"
+        );
+
+
+        /* =================================
+           MOSTRAR COMPROBANTE
+        ================================= */
+
+        const receipt =
+            document.getElementById(
+                "receipt"
+            );
+
+
+        if (!receipt) {
+
+            console.error(
+                "No se encontró la pantalla de comprobante."
+            );
+
+            return;
+
+        }
+
+
+        document.body.classList.add(
+            "receipt-active"
+        );
+
+        receipt.classList.add(
+            "active"
+        );
+
+
+        irArriba();
+
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo subir el comprobante:",
+            error
+        );
+
+
+        if (mensajeArchivo) {
+
+            mensajeArchivo.textContent =
+                "⚠ No se pudo subir el comprobante. Intenta nuevamente.";
+
+            mensajeArchivo.classList.remove(
+                "selected"
+            );
+
+        }
+
+
+    } finally {
+
+        if (botonContinuar) {
+
+            botonContinuar.disabled =
+                false;
+
+            botonContinuar.textContent =
+                "CONTINUAR";
+
+        }
+
+    }
+
 }
-
 
 /* =================================
    VOLVER AL PAGO
@@ -971,4 +1295,116 @@ async function obtenerTasaUSDT() {
 
         return 970;
     }
+}/* ==========================================
+   COMPROBANTE DE PAGO
+   SELECCIÓN Y VISTA PREVIA
+========================================== */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const campoComprobante =
+        document.getElementById("payment-receipt-file");
+
+    const nombreComprobante =
+        document.getElementById("payment-receipt-name");
+
+    const vistaPrevia =
+        document.getElementById("payment-receipt-preview");
+
+
+    if (!campoComprobante) {
+        return;
+    }
+
+
+    campoComprobante.addEventListener(
+        "change",
+        function () {
+
+            const archivo =
+                campoComprobante.files[0];
+
+
+            if (!archivo) {
+
+                if (nombreComprobante) {
+                    nombreComprobante.textContent =
+                        "Ningún comprobante seleccionado";
+
+                    nombreComprobante.classList.remove(
+                        "selected"
+                    );
+                }
+
+                if (vistaPrevia) {
+                    vistaPrevia.src = "";
+                    vistaPrevia.classList.remove(
+                        "visible"
+                    );
+                }
+
+                return;
+            }
+
+
+            /* Verificar que sea una imagen */
+
+            if (!archivo.type.startsWith("image/")) {
+
+                if (nombreComprobante) {
+    nombreComprobante.textContent =
+        "⚠ Selecciona una imagen válida.";
+
+    nombreComprobante.classList.remove(
+        "selected"
+    );
 }
+
+                campoComprobante.value = "";
+
+                return;
+            }
+
+
+            /* Mostrar nombre */
+
+            if (nombreComprobante) {
+
+                nombreComprobante.textContent =
+                    "✓ " + archivo.name;
+
+                nombreComprobante.classList.add(
+                    "selected"
+                );
+            }
+
+
+            /* Crear vista previa */
+
+            if (vistaPrevia) {
+
+                const lector =
+                    new FileReader();
+
+                lector.onload =
+                    function (evento) {
+
+                        vistaPrevia.src =
+                            evento.target.result;
+
+                        vistaPrevia.classList.add(
+                            "visible"
+                        );
+
+                    };
+
+                lector.readAsDataURL(
+                    archivo
+                );
+
+            }
+
+        }
+    );
+
+});
