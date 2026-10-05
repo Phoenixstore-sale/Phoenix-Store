@@ -655,7 +655,7 @@ async function pagoRealizado() {
 
         const respuesta =
             await fetch(
-                `${SUPABASE_URL}/storage/v1/object/comprobantes/${rutaArchivo}`,
+                `${SUPABASE_URL}/storage/v1/object/Comprobante/${rutaArchivo}`,
                 {
                     method: "POST",
 
