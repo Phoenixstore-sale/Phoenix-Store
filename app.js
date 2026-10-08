@@ -652,7 +652,8 @@ async function pagoRealizado() {
         /* =================================
            SUBIR A SUPABASE STORAGE
         ================================= */
-
+console.log("BUCKET QUE ESTOY USANDO:", "Comprobante");
+console.log("URL DE SUBIDA:", `${SUPABASE_URL}/storage/v1/object/Comprobante/${rutaArchivo}`);
         const respuesta =
             await fetch(
                 `${SUPABASE_URL}/storage/v1/object/Comprobante/${rutaArchivo}`,
