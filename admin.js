@@ -409,7 +409,84 @@ async function guardarTasaAdmin() {
 
 }
 
+/* ==========================================
+   CARGAR JUEGOS
+========================================== */
 
+async function cargarJuegosAdmin() {
+    const contenedor = document.getElementById("adminGamesList");
+    const mensaje = document.getElementById("adminGamesMessage");
+
+    if (!contenedor || !mensaje) return;
+
+    const token = obtenerTokenAdmin();
+
+    if (!token) {
+        mensaje.textContent = "Inicia sesión para consultar los juegos.";
+        return;
+    }
+
+    mensaje.textContent = "CARGANDO JUEGOS...";
+    contenedor.innerHTML = "";
+
+    try {
+        const respuesta = await fetch(
+            `${SUPABASE_URL}/rest/v1/Juegos?select=id,name,slug,description,image_url,active,sort_order&order=sort_order.asc`,
+            {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (!respuesta.ok) {
+            throw new Error(
+                `Error ${respuesta.status}: ${await respuesta.text()}`
+            );
+        }
+
+        const juegos = await respuesta.json();
+
+        if (!juegos.length) {
+            mensaje.textContent = "No hay juegos registrados.";
+            return;
+        }
+
+        juegos.forEach(function (juego) {
+            const tarjeta = document.createElement("div");
+            tarjeta.className = "admin-product-card";
+
+            const nombre = document.createElement("h3");
+            nombre.textContent = juego.name || "Juego sin nombre";
+
+            const descripcion = document.createElement("p");
+            descripcion.textContent =
+                juego.description || "Sin descripción";
+
+            const estado = document.createElement("p");
+            estado.textContent = juego.active ? "ACTIVO" : "INACTIVO";
+
+            const slug = document.createElement("p");
+            slug.textContent = "Identificador: " + (juego.slug || "—");
+
+            tarjeta.appendChild(nombre);
+            tarjeta.appendChild(descripcion);
+            tarjeta.appendChild(estado);
+            tarjeta.appendChild(slug);
+
+            contenedor.appendChild(tarjeta);
+        });
+
+        mensaje.textContent = `JUEGOS REGISTRADOS: ${juegos.length}`;
+
+    } catch (error) {
+        console.error("Error cargando juegos:", error);
+        mensaje.textContent =
+            "NO SE PUDIERON CARGAR LOS JUEGOS. " + error.message;
+    }
+}
 // ==========================================
 // CARGAR PRODUCTOS
 // ==========================================
@@ -1702,6 +1779,7 @@ const botonJuegos = document.querySelector(
 if (botonJuegos) {
     botonJuegos.addEventListener("click", function () {
         mostrarSeccion("juegos", botonJuegos);
+        cargarJuegosAdmin();
     });
 }
     /* ======================================
