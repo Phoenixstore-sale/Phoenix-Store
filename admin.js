@@ -1691,7 +1691,19 @@ function configurarNavegacionAdmin() {
 
     }
 
+/* ======================================
+   BOTÓN JUEGOS
+====================================== */
 
+const botonJuegos = document.querySelector(
+    '[data-admin-section="juegos"]'
+);
+
+if (botonJuegos) {
+    botonJuegos.addEventListener("click", function () {
+        mostrarSeccion("juegos", botonJuegos);
+    });
+}
     /* ======================================
        BOTÓN CONFIGURACIÓN
     ====================================== */
