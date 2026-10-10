@@ -1555,6 +1555,9 @@ function configurarNavegacionAdmin() {
     productos:
         document.getElementById("adminSectionProductos"),
 
+    juegos:
+        document.getElementById("adminSectionJuegos"),
+
     pedidos:
         document.getElementById("adminSectionPedidos"),
 
