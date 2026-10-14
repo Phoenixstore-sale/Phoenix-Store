@@ -1806,7 +1806,7 @@ async function cargarEstadisticasAdmin() {
 
 function configurarNavegacionAdmin() {
          configurarFormularioJuegos();
-         confirurarBotonGuardarJuego();
+         configurarBotonGuardarJuego();
     const botones =
         document.querySelectorAll(".admin-nav-button");
 
