@@ -204,6 +204,9 @@
     <div class="admin-products-container">
         <div class="admin-products-header">
             <h3>JUEGOS REGISTRADOS</h3>
+            <button type="button" id="btnNuevoJuego">
+                + AGREGAR JUEGO
+            </button>
         </div>
 
         <p id="adminGamesMessage">
@@ -212,6 +215,59 @@
 
         <div id="adminGamesList">
         </div>
+        <!-- FORMULARIO PARA AGREGAR O EDITAR JUEGOS -->
+<div id="adminGameForm" style="display: none;">
+
+    <h3 id="adminGameFormTitle">AGREGAR JUEGO</h3>
+
+    <label for="adminGameName">Nombre del juego</label>
+    <input
+        type="text"
+        id="adminGameName"
+        placeholder="Ejemplo: Blood Strike"
+    >
+
+    <label for="adminGameSlug">Identificador del juego</label>
+    <input
+        type="text"
+        id="adminGameSlug"
+        placeholder="Ejemplo: blood-strike"
+    >
+
+    <label for="adminGameDescription">Descripción</label>
+    <textarea
+        id="adminGameDescription"
+        placeholder="Describe el juego..."
+        rows="3"
+    ></textarea>
+
+    <label for="adminGameImage">Portada del juego</label>
+    <input
+        type="file"
+        id="adminGameImage"
+        accept="image/png,image/jpeg,image/webp"
+    >
+
+    <div id="adminGameImagePreview"></div>
+
+    <label>
+        <input type="checkbox" id="adminGameActive" checked>
+        Juego activo
+    </label>
+
+    <div>
+        <button type="button" id="btnGuardarJuego">
+            GUARDAR JUEGO
+        </button>
+
+        <button type="button" id="btnCancelarJuego">
+            CANCELAR
+        </button>
+    </div>
+
+    <p id="adminGameFormMessage"></p>
+
+    </div>
     </div>
 </section>
 

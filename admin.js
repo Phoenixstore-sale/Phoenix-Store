@@ -487,6 +487,28 @@ async function cargarJuegosAdmin() {
             "NO SE PUDIERON CARGAR LOS JUEGOS. " + error.message;
     }
 }
+function configurarFormularioJuegos() {
+    const botonNuevo = document.getElementById("btnNuevoJuego");
+    const formulario = document.getElementById("adminGameForm");
+    const titulo = document.getElementById("adminGameFormTitle");
+    const mensaje = document.getElementById("adminGameFormMessage");
+    const botonCancelar = document.getElementById("btnCancelarJuego");
+
+    if (!botonNuevo || !formulario) return;
+
+    botonNuevo.addEventListener("click", function () {
+        formulario.style.display = "block";
+        titulo.textContent = "AGREGAR JUEGO";
+        mensaje.textContent = "";
+        formulario.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    if (botonCancelar) {
+        botonCancelar.addEventListener("click", function () {
+            formulario.style.display = "none";
+        });
+    }
+}
 // ==========================================
 // CARGAR PRODUCTOS
 // ==========================================
@@ -1620,7 +1642,7 @@ async function cargarEstadisticasAdmin() {
 ========================================== */
 
 function configurarNavegacionAdmin() {
-
+         configurarFormularioJuegos();
     const botones =
         document.querySelectorAll(".admin-nav-button");
 
