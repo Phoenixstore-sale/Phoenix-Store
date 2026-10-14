@@ -4277,4 +4277,170 @@ body.blood-strike-active > footer {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+}/* ==========================================
+   PHOENIX STORE - ESTILO EXCLUSIVO DE JUEGOS
+========================================== */
+
+#adminSectionJuegos {
+    position: relative;
+    overflow: hidden;
+    padding: 30px;
+    background:
+        radial-gradient(
+            ellipse at top left,
+            rgba(242, 196, 0, 0.09),
+            transparent 45%
+        ),
+        linear-gradient(145deg, #141414, #070707);
+    border: 1px solid #51420b;
+    border-radius: 16px;
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(242, 196, 0, 0.08);
+}
+
+/* Encabezado gaming */
+
+#adminSectionJuegos .admin-section-header {
+    position: relative;
+    margin-bottom: 28px;
+    padding: 8px 0 22px;
+    border-bottom: 1px solid #40350e;
+}
+
+#adminSectionJuegos .admin-section-header h2 {
+    margin: 0 0 10px;
+    color: #f2c400;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 18px rgba(242, 196, 0, 0.16);
+}
+
+#adminSectionJuegos .admin-section-header p {
+    margin: 0;
+    color: #b6b6b6;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Panel de juegos registrados */
+
+#adminSectionJuegos .admin-products-container {
+    display: block;
+    padding: 22px;
+    background: rgba(5, 5, 5, 0.7);
+    border: 1px solid #292929;
+    border-radius: 12px;
+}
+
+#adminSectionJuegos .admin-products-header {
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #302800;
+}
+
+#adminSectionJuegos .admin-products-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+/* Mensajes de carga y resultados */
+
+#adminGamesMessage {
+    color: #f2c400;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1.7;
+}
+
+/* Cuadrícula de tarjetas */
+
+#adminGamesList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+/* Tarjetas de juegos */
+
+#adminSectionJuegos .admin-product-card {
+    min-width: 0;
+    padding: 24px;
+    background:
+        linear-gradient(135deg, #1b1b1b, #090909 75%);
+    border: 1px solid #4a3b0c;
+    border-radius: 12px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#adminSectionJuegos .admin-product-card::before {
+    height: 3px;
+    background: linear-gradient(90deg, #8b6c00, #ffe35b, #b58a00);
+}
+
+#adminSectionJuegos .admin-product-card:hover {
+    transform: translateY(-4px);
+    border-color: #b18d18;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+#adminSectionJuegos .admin-product-card h3 {
+    margin: 4px 0 12px;
+    color: #f2c400;
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    overflow-wrap: anywhere;
+}
+
+#adminSectionJuegos .admin-product-card p {
+    color: #bcbcbc;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+#adminSectionJuegos .admin-product-card p:nth-of-type(2) {
+    display: inline-block;
+    margin: 6px 0;
+    padding: 4px 10px;
+    color: #8af0a5;
+    background: rgba(45, 145, 71, 0.12);
+    border: 1px solid rgba(90, 205, 120, 0.3);
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+}
+
+/* Adaptación a móviles */
+
+@media (max-width: 650px) {
+    #adminSectionJuegos {
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    #adminSectionJuegos .admin-products-container {
+        padding: 14px;
+    }
+
+    #adminGamesList {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    #adminSectionJuegos .admin-product-card {
+        padding: 20px;
+    }
 }
