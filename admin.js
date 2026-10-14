@@ -457,7 +457,12 @@ async function cargarJuegosAdmin() {
         juegos.forEach(function (juego) {
             const tarjeta = document.createElement("div");
             tarjeta.className = "admin-product-card";
+             tarjeta.style.cursor = "pointer";
+             tarjeta.title = "Pulsa para editar este juego";
 
+            tarjeta.addEventListener("click", function () {
+            abrirFormularioEditarJuego(juego);
+             });
             const nombre = document.createElement("h3");
             nombre.textContent = juego.name || "Juego sin nombre";
 
@@ -497,17 +502,175 @@ function configurarFormularioJuegos() {
     if (!botonNuevo || !formulario) return;
 
     botonNuevo.addEventListener("click", function () {
-        formulario.style.display = "block";
-        titulo.textContent = "AGREGAR JUEGO";
-        mensaje.textContent = "";
-        formulario.scrollIntoView({ behavior: "smooth", block: "start" });
+    formulario.reset();
+    delete formulario.dataset.gameId;
+    delete formulario.dataset.imageUrl;
+
+    titulo.textContent = "AGREGAR JUEGO";
+    mensaje.textContent = "Completa los datos del nuevo juego.";
+
+    formulario.style.display = "block";
+    formulario.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
     });
+});
 
     if (botonCancelar) {
         botonCancelar.addEventListener("click", function () {
             formulario.style.display = "none";
         });
     }
+}
+function abrirFormularioEditarJuego(juego) {
+    const formulario = document.getElementById("adminGameForm");
+    const titulo = document.getElementById("adminGameFormTitle");
+    const nombre = document.getElementById("adminGameName");
+    const slug = document.getElementById("adminGameSlug");
+    const descripcion = document.getElementById("adminGameDescription");
+    const activo = document.getElementById("adminGameActive");
+    const mensaje = document.getElementById("adminGameFormMessage");
+
+    if (!formulario || !juego) return;
+
+    titulo.textContent = "EDITAR JUEGO";
+    nombre.value = juego.name || "";
+    slug.value = juego.slug || "";
+    descripcion.value = juego.description || "";
+    activo.checked = Boolean(juego.active);
+    mensaje.textContent = "Editando: " + (juego.name || "juego");
+
+    formulario.dataset.gameId = juego.id;
+    formulario.style.display = "block";
+    formulario.dataset.imageUrl = juego.image_url || "";
+
+    formulario.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+async function guardarJuegoAdmin() {
+    const formulario = document.getElementById("adminGameForm");
+    const mensaje = document.getElementById("adminGameFormMessage");
+
+    const nombre = document.getElementById("adminGameName").value.trim();
+    const slug = document.getElementById("adminGameSlug").value.trim().toLowerCase();
+    const descripcion = document.getElementById("adminGameDescription").value.trim();
+    const activo = document.getElementById("adminGameActive").checked;
+    const archivoImagen = document.getElementById("adminGameImage").files[0];
+
+    const juegoId = formulario.dataset.gameId;
+    const token = obtenerTokenAdmin();
+
+    if (!token) {
+        mensaje.textContent = "Inicia sesión para guardar los cambios.";
+        return;
+    }
+
+    if (!nombre || !slug) {
+        mensaje.textContent = "El nombre y el identificador son obligatorios.";
+        return;
+    }
+
+    if (!/^[a-z0-9-]+$/.test(slug)) {
+        mensaje.textContent = "Usa minúsculas, números y guiones en el identificador.";
+        return;
+    }
+
+    let imageUrl = formulario.dataset.imageUrl || "";
+
+    try {
+        mensaje.textContent = "GUARDANDO...";
+
+        if (archivoImagen) {
+            mensaje.textContent = "SUBIENDO PORTADA...";
+            imageUrl = await subirImagenJuego(archivoImagen, token);
+        }
+
+        const esEdicion = Boolean(juegoId);
+        const url = esEdicion
+            ? `${SUPABASE_URL}/rest/v1/Juegos?id=eq.${encodeURIComponent(juegoId)}`
+            : `${SUPABASE_URL}/rest/v1/Juegos`;
+
+        const datosJuego = {
+            name: nombre,
+            slug: slug,
+            description: descripcion,
+            active: activo,
+            image_url: imageUrl || null
+        };
+
+        if (!esEdicion) {
+            datosJuego.sort_order = 0;
+        }
+
+        const respuesta = await fetch(url, {
+            method: esEdicion ? "PATCH" : "POST",
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
+            body: JSON.stringify(datosJuego)
+        });
+
+        if (!respuesta.ok) {
+            throw new Error(await respuesta.text());
+        }
+
+        mensaje.textContent = esEdicion
+            ? "¡Juego actualizado correctamente!"
+            : "¡Juego creado correctamente!";
+
+        delete formulario.dataset.gameId;
+        delete formulario.dataset.imageUrl;
+        formulario.reset();
+
+        await cargarJuegosAdmin();
+
+    } catch (error) {
+        console.error("Error guardando juego:", error);
+        mensaje.textContent = "No se pudo guardar: " + error.message;
+    }
+}
+
+async function subirImagenJuego(archivo, token) {
+    if (!archivo) return null;
+
+    const tiposPermitidos = ["image/png", "image/jpeg", "image/webp"];
+
+    if (!tiposPermitidos.includes(archivo.type)) {
+        throw new Error("Selecciona una imagen PNG, JPG o WebP.");
+    }
+
+    if (archivo.size > 5 * 1024 * 1024) {
+        throw new Error("La imagen no puede superar los 5 MB.");
+    }
+
+    const extension = archivo.name.split(".").pop().toLowerCase();
+    const nombreArchivo = `${crypto.randomUUID()}.${extension}`;
+    const ruta = `portadas/${nombreArchivo}`;
+
+    const respuesta = await fetch(
+        `${SUPABASE_URL}/storage/v1/object/juegos/${ruta}`,
+        {
+            method: "POST",
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": archivo.type,
+                "x-upsert": "false"
+            },
+            body: archivo
+        }
+    );
+
+    if (!respuesta.ok) {
+        throw new Error("No se pudo subir la imagen: " + await respuesta.text());
+    }
+
+    return `${SUPABASE_URL}/storage/v1/object/public/juegos/${ruta}`;
 }
 // ==========================================
 // CARGAR PRODUCTOS
@@ -1643,6 +1806,7 @@ async function cargarEstadisticasAdmin() {
 
 function configurarNavegacionAdmin() {
          configurarFormularioJuegos();
+         confirurarBotonGuardarJuego();
     const botones =
         document.querySelectorAll(".admin-nav-button");
 
